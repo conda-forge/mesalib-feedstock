@@ -7,8 +7,8 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-    url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-    sha256: 8253edf1bdd7b14ab63d5982349143a5c9ac3767f39a63257cc9d7e7d92f60f1
+  url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
+  sha256: 8253edf1bdd7b14ab63d5982349143a5c9ac3767f39a63257cc9d7e7d92f60f1
 
 build:
   skip: True  # [win or py3k]
@@ -21,12 +21,12 @@ requirements:
       - pthread-stubs
       - pkgconfig
       - gcc  # [linux]
-    run:
+  run:
       - pthread-stubs
       - libgcc  # [linux]
 
 test:
-    commands:
+  commands:
       - test -f $PREFIX/lib/libOSMesa.so      # [linux]
       - test -f $PREFIX/lib/libOSMesa.dylib   # [osx]
 
@@ -35,9 +35,6 @@ about:
   license: MIT
   license_file: docs/license.html
   summary: Mesa is an open-source implementation of the OpenGL specification - a system for rendering interactive 3D graphics.
-  description: |
-    A variety of device drivers allows Mesa to be used in many different environments ranging from software emulation to complete hardware acceleration for modern GPUs.
-    Mesa ties into several other open-source projects. The Direct Rendering Infrastructure and X.org to provide OpenGL support to users of X on Linux, FreeBSD and other operating systems.
 
 extra:
     recipe-maintainers:
