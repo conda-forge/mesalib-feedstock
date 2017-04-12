@@ -27,8 +27,8 @@ requirements:
 
 test:
   commands:
-      - test -f $PREFIX/lib/libOSMesa.so      # [linux]
-      - test -f $PREFIX/lib/libOSMesa.dylib   # [osx]
+      - test -f $PREFIX/lib/libOSMesa32.so      # [linux]
+      - test -f $PREFIX/lib/libOSMesa32.dylib   # [osx]
 
 about:
   home: http://www.mesa3d.org/
