@@ -30,7 +30,8 @@ export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
     --disable-egl \
     --with-egl-platforms= \
     --enable-gallium-osmesa \
-    --disable-glx
+    --disable-glx \
+    --with-osmesa-bits=32
 
 make -j${CPU_COUNT}
 make install
