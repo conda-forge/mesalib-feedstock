@@ -31,7 +31,7 @@ test:
       - test -f $PREFIX/lib/libOSMesa32.dylib   # [osx]
 
 about:
-  home: http://www.mesa3d.org/
+  home: http://www.mesa3d.org
   license: MIT
   license_file: docs/license.html
   summary: Mesa is an open-source implementation of the OpenGL specification - a system for rendering interactive 3D graphics.
