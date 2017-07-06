@@ -12,6 +12,7 @@ docker info
 
 config=$(cat <<CONDARC
 
+ssl_verify: 'false'
 channels:
  - conda-forge
  - defaults

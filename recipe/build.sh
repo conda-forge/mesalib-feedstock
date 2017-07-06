@@ -30,6 +30,7 @@ export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
     --disable-egl \
     --with-egl-platforms= \
     --enable-gallium-osmesa \
+    --enable-gallium-llvm=yes \
     --disable-glx \
     --with-osmesa-bits=32
 
