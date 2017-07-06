@@ -15,7 +15,6 @@ export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
 
 ./configure \
     --prefix=$PREFIX \
-    --enable-opengl \
     --disable-gles1 \
     --disable-gles2 \
     --disable-va \
