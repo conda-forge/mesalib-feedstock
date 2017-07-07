@@ -15,7 +15,6 @@ export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
 
 ./configure \
     --prefix=$PREFIX \
-    --enable-opengl \
     --disable-gles1 \
     --disable-gles2 \
     --disable-va \
@@ -30,6 +29,7 @@ export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
     --disable-egl \
     --with-egl-platforms= \
     --enable-gallium-osmesa \
+    --enable-gallium-llvm=yes \
     --disable-glx \
     --with-osmesa-bits=32
 
