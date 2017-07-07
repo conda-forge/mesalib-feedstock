@@ -1,5 +1,5 @@
 {% set name = "mesaLib" %}
-{% set version = "17.0.4" %}
+{% set version = "17.1.4" %}
 
 package:
   name: {{ name|lower }}
