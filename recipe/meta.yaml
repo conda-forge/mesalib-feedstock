@@ -12,7 +12,7 @@ source:
 
 build:
   skip: True  # [win or py3k]
-  number: 0
+  number: 2
   track_features:
       - mesalib
 
@@ -21,12 +21,10 @@ requirements:
       - pthread-stubs
       - pkgconfig
       - gcc  # [linux]
-      - llvm
       - toolchain
   run:
       - pthread-stubs
       - libgcc  # [linux]
-      - llvm
 
 test:
   commands:
