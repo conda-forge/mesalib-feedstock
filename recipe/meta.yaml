@@ -22,9 +22,11 @@ requirements:
       - pkgconfig
       - gcc  # [linux]
       - toolchain
+      - llvm
   run:
       - pthread-stubs
       - libgcc  # [linux]
+      - llvm
 
 test:
   commands:
