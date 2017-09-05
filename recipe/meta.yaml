@@ -1,18 +1,18 @@
 {% set name = "mesaLib" %}
-{% set version = "17.1.4" %}
+{% set version = "17.2.0" %}
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-  sha256: f82fbbdf2dcec0e7e5aa3a8fe4bacd50bf4b7293cc6e1a56658ae6504d732362
+  sha256: 9484ad96b4bb6cda5bbf1aef52dfa35183dc21aa6258a2991c245996c2fdaf85
 
 build:
   skip: True  # [win or py3k]
-  number: 3
+  number: 0
   track_features:
       - mesalib
 
