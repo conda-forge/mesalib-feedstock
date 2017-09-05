@@ -15,7 +15,6 @@ export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
 
 ./configure \
     --prefix=$PREFIX \
-    --enable-opengl \
     --disable-gles1 \
     --disable-gles2 \
     --disable-va \
@@ -31,6 +30,8 @@ export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
     --with-egl-platforms= \
     --enable-gallium-osmesa \
     --disable-glx \
+    --enable-llvm \
+    --disable-llvm-shared-libs \
     --with-osmesa-bits=32
 
 make -j${CPU_COUNT}
