@@ -20,12 +20,10 @@ requirements:
   build:
       - pthread-stubs
       - pkgconfig
-      - gcc  # [linux]
       - toolchain
       - llvmdev
   run:
       - pthread-stubs
-      - libgcc  # [linux]
       - llvmdev
 
 test:
