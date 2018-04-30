@@ -23,6 +23,7 @@ requirements:
       - toolchain
       - llvmdev
       - expat
+      - python
   run:
       - pthread-stubs
       - llvmdev
