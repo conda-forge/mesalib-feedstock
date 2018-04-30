@@ -1,10 +1,10 @@
 #!/bin/bash
 
 osname=`uname`
-if [ $osname == Linux ]; then
-    export CC="gcc"
-    export CXX="g++"
-elif [ $osname == Darwin ]; then
+#if [ $osname == Linux ]; then
+#    export CC="gcc"
+#    export CXX="g++"
+if [ $osname == Darwin ]; then
     export CC="clang"
     export CXX="clang++"
 fi

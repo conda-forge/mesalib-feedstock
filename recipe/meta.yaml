@@ -1,5 +1,5 @@
 {% set name = "mesaLib" %}
-{% set version = "17.2.0" %}
+{% set version = "18.0.2" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-  sha256: 9484ad96b4bb6cda5bbf1aef52dfa35183dc21aa6258a2991c245996c2fdaf85
+  sha256: ffd8dfe3337b474a3baa085f0e7ef1a32c7cdc3bed1ad810b2633919a9324840
 
 build:
   skip: True  # [win or py3k]
@@ -20,13 +20,15 @@ requirements:
   build:
       - pthread-stubs
       - pkgconfig
-      - gcc  # [linux]
+      - gcc_linux-64  # [linux]
       - toolchain
       - llvmdev
+      - expat
   run:
       - pthread-stubs
       - libgcc  # [linux]
       - llvmdev
+      - expat
 
 test:
   commands:
