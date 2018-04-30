@@ -10,8 +10,8 @@ if [ $osname == Darwin ]; then
 fi
 
 export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig/:"${PKG_CONFIG_PATH}
-export CFLAGS="-I${PREFIX}/include "${CFLAGS}
-export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
+#export CFLAGS="-I${PREFIX}/include "${CFLAGS}
+#export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
 
 ./configure \
     --prefix=$PREFIX \
