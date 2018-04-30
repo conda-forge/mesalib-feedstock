@@ -14,8 +14,8 @@ Summary: Mesa is an open-source implementation of the OpenGL specification, a sy
 Current build status
 ====================
 
-![Linux disabled](https://img.shields.io/badge/linux-disabled-lightgrey.svg)
-![OSX disabled](https://img.shields.io/badge/OSX-disabled-lightgrey.svg)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/mesalib-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/mesalib-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/mesalib-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/mesalib-feedstock)
 ![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
 
 Current release info
