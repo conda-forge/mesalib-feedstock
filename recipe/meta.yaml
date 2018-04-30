@@ -20,13 +20,11 @@ requirements:
   build:
       - pthread-stubs
       - pkgconfig
-      - gcc_linux-64  # [linux]
       - toolchain
       - llvmdev
       - expat
   run:
       - pthread-stubs
-      - libgcc  # [linux]
       - llvmdev
       - expat
 
