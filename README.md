@@ -1,29 +1,29 @@
 About mesalib
 =============
 
-Home: http://www.mesa3d.org/
+Home: http://www.mesa3d.org
 
 Package license: MIT
 
 Feedstock license: BSD 3-Clause
 
-Summary: Mesa is an open-source implementation of the OpenGL specification - a system for rendering interactive 3D graphics.
+Summary: Mesa is an open-source implementation of the OpenGL specification, a system for rendering interactive 3D graphics.
 
-A variety of device drivers allows Mesa to be used in many different environments ranging from software emulation to complete hardware acceleration for modern GPUs.
-Mesa ties into several other open-source projects. The Direct Rendering Infrastructure and X.org to provide OpenGL support to users of X on Linux, FreeBSD and other operating systems.
 
 
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/mesalib-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/mesalib-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/mesalib-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/mesalib-feedstock)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/mesalib-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/mesalib-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/mesalib-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/mesalib-feedstock)
+![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/mesalib/badges/version.svg)](https://anaconda.org/conda-forge/mesalib)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/mesalib/badges/downloads.svg)](https://anaconda.org/conda-forge/mesalib)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mesalib-green.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) |
 
 Installing mesalib
 ==================
@@ -68,6 +68,7 @@ To manage the continuous integration and simplify feedstock maintenance
 Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
 this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
 
+For more information please check the [conda-forge documentation](https://conda-forge.org/docs/).
 
 Terminology
 ===========
