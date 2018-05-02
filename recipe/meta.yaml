@@ -24,13 +24,11 @@ requirements:
       - llvmdev
       - expat
       - python <3
-      - gcc_linux-64  # [linux]
       - clang_osx-64  # [osx]
   run:
       - pthread-stubs
       - llvmdev
       - expat
-      - libgcc  # [linux]
 
 test:
   commands:
