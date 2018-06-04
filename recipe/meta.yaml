@@ -1,5 +1,5 @@
 {% set name = "mesaLib" %}
-{% set version = "17.2.0" %}
+{% set version = "18.1.1" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-  sha256: 9484ad96b4bb6cda5bbf1aef52dfa35183dc21aa6258a2991c245996c2fdaf85
+  sha256: 366a35f7530a016f2a8284fb0ee5759eeb216b4d6fa47f0e96b89ad2e43faf96
 
 build:
   skip: True  # [win or py3k]
@@ -30,8 +30,7 @@ requirements:
 
 test:
   commands:
-      - test -f $PREFIX/lib/libOSMesa32.so      # [linux]
-      - test -f $PREFIX/lib/libOSMesa32.dylib   # [osx]
+      - test -f $PREFIX/lib/libOSMesa32${SHLIB_EXT}  # [unix]
 
 about:
   home: http://www.mesa3d.org
