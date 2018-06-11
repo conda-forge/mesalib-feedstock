@@ -20,7 +20,7 @@ requirements:
   build:
       - pthread-stubs
       - pkgconfig
-      - gcc  # [linux]
+      - {{ compiler("c") }}
       - toolchain
       - llvmdev
       - expat
