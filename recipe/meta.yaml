@@ -23,10 +23,12 @@ requirements:
       - gcc  # [linux]
       - toolchain
       - llvmdev
+      - expat
   run:
       - pthread-stubs
       - libgcc  # [linux]
       - llvmdev
+      - expat
 
 test:
   commands:
