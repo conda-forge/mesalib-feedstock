@@ -24,7 +24,7 @@ requirements:
       - toolchain
       - llvmdev
       - expat
-      - python
+      - python <3
   run:
       - pthread-stubs
       - libgcc  # [linux]
