@@ -11,7 +11,7 @@ source:
   sha256: 366a35f7530a016f2a8284fb0ee5759eeb216b4d6fa47f0e96b89ad2e43faf96
 
 build:
-  skip: True  # [win or py3k]
+  skip: True  # [win]
   number: 0
   track_features:
       - mesalib
