@@ -11,22 +11,22 @@ source:
   sha256: 366a35f7530a016f2a8284fb0ee5759eeb216b4d6fa47f0e96b89ad2e43faf96
 
 build:
-  skip: True  # [win or py3k]
-  number: 0
+  skip: True  # [win]
+  number: 1
   track_features:
       - mesalib
 
 requirements:
   build:
-      - pthread-stubs
+      - {{ compiler('c') }}
+      - {{ compiler('cxx') }}
       - pkgconfig
-      - gcc  # [linux]
-      - toolchain
-      - llvmdev
-  run:
+      - python 2.*
+      - mako
+  host:
       - pthread-stubs
-      - libgcc  # [linux]
       - llvmdev
+      - expat
 
 test:
   commands:
