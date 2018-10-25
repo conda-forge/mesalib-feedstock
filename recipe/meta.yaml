@@ -23,10 +23,12 @@ requirements:
       - pkgconfig
       - python 2.*
       - mako
+      - zlib
   host:
       - pthread-stubs
       - llvmdev
       - expat
+      - zlib
 
 test:
   commands:
