@@ -1,17 +1,6 @@
 #!/bin/bash
 
 osname=`uname`
-if [ $osname == Linux ]; then
-    export CC="gcc"
-    export CXX="g++"
-elif [ $osname == Darwin ]; then
-    export CC="clang"
-    export CXX="clang++"
-fi
-
-export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig/:"${PKG_CONFIG_PATH}
-export CFLAGS="-I${PREFIX}/include "${CFLAGS}
-export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
 
 ./configure \
     --prefix=$PREFIX \
