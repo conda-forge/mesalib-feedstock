@@ -15,6 +15,8 @@ expat:
 pin_run_as_build:
   expat:
     max_pin: x.x
+  zlib:
+    max_pin: x.x
 zip_keys:
 - - c_compiler
   - cxx_compiler
@@ -22,3 +24,5 @@ zip_keys:
   - channel_targets
   - docker_image
   - build_number_decrement
+zlib:
+- '1.2'
