@@ -2,6 +2,8 @@
 
 osname=`uname`
 
+CFLAGS="-std=c11 ${CFLAGS}"
+
 ./configure \
     --prefix=$PREFIX \
     --disable-gles1 \
