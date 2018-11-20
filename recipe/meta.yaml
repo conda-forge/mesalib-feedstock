@@ -12,7 +12,7 @@ source:
 
 build:
   skip: True  # [win]
-  number: 1000
+  number: 1001
   track_features:
       - mesalib
 
@@ -20,7 +20,7 @@ requirements:
   build:
       - {{ compiler('c') }}
       - {{ compiler('cxx') }}
-      - pkgconfig
+      - pkg-config
       - python 2.*
       - mako
       - zlib
