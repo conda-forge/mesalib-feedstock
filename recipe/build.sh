@@ -2,7 +2,7 @@
 
 osname=`uname`
 
-CFLAGS="-std=c11 ${CFLAGS} -Wno-implicit-function-declaration"
+export CFLAGS="${CFLAGS} -std=c11 -Wno-implicit-function-declaration"
 
 ./configure \
     --prefix=$PREFIX \
