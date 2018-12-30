@@ -1,0 +1,12 @@
+diff --git a/configure.ac b/configure.ac
+index e4d20054d5..5ff5e31a87 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -305,7 +305,6 @@ dnl
+ dnl Check compiler flags
+ dnl
+ AX_CHECK_COMPILE_FLAG([-Wall],                                 [CFLAGS="$CFLAGS -Wall"])
+-AX_CHECK_COMPILE_FLAG([-Werror=implicit-function-declaration], [CFLAGS="$CFLAGS -Werror=implicit-function-declaration"])
+ AX_CHECK_COMPILE_FLAG([-Werror=missing-prototypes],            [CFLAGS="$CFLAGS -Werror=missing-prototypes"])
+ AX_CHECK_COMPILE_FLAG([-Wmissing-prototypes],                  [CFLAGS="$CFLAGS -Wmissing-prototypes"])
+ dnl Dylan Baker: gcc and clang always accepr -Wno-*, hence check for the original warning, then set the no-* flag

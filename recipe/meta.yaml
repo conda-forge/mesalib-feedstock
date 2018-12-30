@@ -12,6 +12,8 @@ source:
   patches:
     # https://patchwork.freedesktop.org/patch/214086/
     - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
+    # fstatat isn't defined on OSX. is this bad???
+    - disable_implicit_function_error.patch  # [osx]
 
 build:
   skip: True  # [win]
