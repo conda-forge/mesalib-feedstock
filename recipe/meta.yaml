@@ -1,5 +1,8 @@
 {% set name = "mesaLib" %}
-{% set version = "17.3.9" %}
+{% set version = "17.3.9" %}  # [linux]
+# 17.1 uses fstatat which isn't defined on OSX.
+# https://github.com/conda-forge/mesalib-feedstock/pull/18#issuecomment-450589848
+{% set version = "17.0.7" %}  # [osx]
 
 package:
   name: {{ name|lower }}
@@ -8,12 +11,11 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-  sha256: 4d625f65a1ff4cd8cfeb39e38f047507c6dea047502a0d53113c96f54588f340
+  sha256: 4d625f65a1ff4cd8cfeb39e38f047507c6dea047502a0d53113c96f54588f340  # [linux]
+  sha256: bc68d13c6b1a053b855ac453ebf7e62bd89511adf44bad6c613e09f7fa13390a  # [osx]
   patches:
     # https://patchwork.freedesktop.org/patch/214086/
     - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
-    # fstatat isn't defined on OSX. is this bad???
-    - disable_implicit_function_error.patch  # [osx]
 
 build:
   skip: True  # [win]
