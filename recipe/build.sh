@@ -1,8 +1,10 @@
 #!/bin/bash
+set -ex
 
 osname=`uname`
 
-export CFLAGS="${CFLAGS} -std=c11 -Wno-implicit-function-declaration"
+export CFLAGS="-Wno-implicit-function-declaration ${CFLAGS} -std=c11 -Wno-implicit-function-declaration"
+echo $CFLAGS
 
 ./configure \
     --prefix=$PREFIX \
