@@ -1,17 +1,10 @@
 #!/bin/bash
+set -ex
 
 osname=`uname`
-if [ $osname == Linux ]; then
-    export CC="gcc"
-    export CXX="g++"
-elif [ $osname == Darwin ]; then
-    export CC="clang"
-    export CXX="clang++"
-fi
 
-export PKG_CONFIG_PATH="${PREFIX}/lib/pkgconfig/:"${PKG_CONFIG_PATH}
-export CFLAGS="-I${PREFIX}/include "${CFLAGS}
-export LDFLAGS="-L${PREFIX}/lib "${LDFLAGS}
+export CFLAGS="-Wno-implicit-function-declaration ${CFLAGS} -std=c11 -Wno-implicit-function-declaration"
+echo $CFLAGS
 
 ./configure \
     --prefix=$PREFIX \

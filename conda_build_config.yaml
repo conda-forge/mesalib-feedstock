@@ -1,0 +1,9 @@
+c_compiler:    # [osx]
+  - llvm       # [osx]
+  - clang      # [osx]
+cxx_compiler:  # [osx]
+  - llvm       # [osx]
+  - clangxx    # [osx]
+
+llvm:          # [osx]
+  - 4.0        # [osx]

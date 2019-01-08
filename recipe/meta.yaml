@@ -1,5 +1,10 @@
 {% set name = "mesaLib" %}
-{% set version = "17.3.9" %}
+{% set version = "17.3.9" %}  # [linux]
+# 17.1 uses fstatat which isn't defined on OSX 10.9 (which conda-forge uses)
+# It was added in OSX 10.12
+# https://github.com/conda-forge/mesalib-feedstock/pull/18#issuecomment-450589848
+# https://github.com/conda-forge/mesalib-feedstock/pull/20#discussion_r244547648
+{% set version = "17.0.7" %}  # [osx]
 
 package:
   name: {{ name|lower }}
@@ -8,11 +13,19 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-  sha256: 4d625f65a1ff4cd8cfeb39e38f047507c6dea047502a0d53113c96f54588f340
+  sha256: 4d625f65a1ff4cd8cfeb39e38f047507c6dea047502a0d53113c96f54588f340  # [linux]
+  sha256: bc68d13c6b1a053b855ac453ebf7e62bd89511adf44bad6c613e09f7fa13390a  # [osx]
+  patches:
+    # https://patchwork.freedesktop.org/patch/214086/
+    - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
 
 build:
   skip: True  # [win]
-  number: 0
+  # OSX toolchain compiler seems to fail
+  # See build logs here
+  # https://travis-ci.org/conda-forge/mesalib-feedstock/builds/473694795
+  skip: True  # [osx and c_compiler == "toolchain_c"]
+  number: 1001
   track_features:
       - mesalib
 
@@ -20,13 +33,15 @@ requirements:
   build:
       - {{ compiler('c') }}
       - {{ compiler('cxx') }}
-      - pkgconfig
+      - pkg-config
       - python 2.*
       - mako
+      - zlib
   host:
       - pthread-stubs
       - llvmdev
       - expat
+      - zlib
 
 test:
   commands:
