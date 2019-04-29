@@ -1,10 +1,10 @@
 {% set name = "mesaLib" %}
-{% set version = "17.3.9" %}  # [linux]
+{% set version = "18.0.0" %}
 # 17.1 uses fstatat which isn't defined on OSX 10.9 (which conda-forge uses)
 # It was added in OSX 10.12
 # https://github.com/conda-forge/mesalib-feedstock/pull/18#issuecomment-450589848
 # https://github.com/conda-forge/mesalib-feedstock/pull/20#discussion_r244547648
-{% set version = "17.0.7" %}  # [osx]
+{% set version = "18.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -25,7 +25,7 @@ build:
   # See build logs here
   # https://travis-ci.org/conda-forge/mesalib-feedstock/builds/473694795
   skip: True  # [osx and c_compiler == "toolchain_c"]
-  number: 1001
+  number: 0
   track_features:
       - mesalib
 
