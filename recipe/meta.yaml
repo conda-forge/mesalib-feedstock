@@ -35,7 +35,7 @@ requirements:
       - zlib
   host:
       - pthread-stubs
-      - llvmdev
+      - llvmdev <6.0.0
       - expat
       - zlib
 
