@@ -9,6 +9,9 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
   sha256: 93c2d3504b2871ac2146603fb1270f341d36a39695e2950a469c5eac74f98457
+  patches:
+    # https://patchwork.freedesktop.org/patch/214086/
+    - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
 
 build:
   skip: True  # [win]
