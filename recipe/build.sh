@@ -27,7 +27,6 @@ echo $CFLAGS
     --disable-llvm-shared-libs \
     --with-osmesa-bits=32
 
-# PYTHON2 is quite hard coded in. This seems to help the build pass
-make -j${CPU_COUNT} PYTHON2=python
+make -j${CPU_COUNT}
 make install
 
