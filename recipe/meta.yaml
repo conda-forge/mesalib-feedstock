@@ -25,6 +25,7 @@ requirements:
       - python
       - mako
       - zlib
+      - make
   host:
       - pthread-stubs
       - llvmdev
