@@ -13,7 +13,7 @@ source:
     # https://patchwork.freedesktop.org/patch/214086/
     - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
     # Patch is still in flight, but basically works
-    - 3674-drop-python2.patch
+    #- 3674-drop-python2.patch
 
 build:
   skip: True  # [win]
@@ -27,7 +27,8 @@ requirements:
       - {{ compiler('c') }}
       - {{ compiler('cxx') }}
       - pkg-config
-      - python
+      # still too hard to get rid of python2
+      - python 2
       - mako
       - zlib
       - make
