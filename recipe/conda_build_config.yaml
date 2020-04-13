@@ -1,4 +1,6 @@
+# New versions need clock_gettime
+# which is supported in 10.12 and later
 macos_min_version:             # [osx]
-  - 10.10                      # [osx]
+  - 10.12                      # [osx]
 MACOSX_DEPLOYMENT_TARGET:      # [osx]
-  - 10.10                      # [osx]
+  - 10.12                      # [osx]
