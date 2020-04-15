@@ -1,5 +1,5 @@
-{% set name = "mesaLib" %}
-{% set version = "18.0.0" %}
+{% set name = "mesalib" %}
+{% set version = "20.0.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,8 +7,8 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-  sha256: 93c2d3504b2871ac2146603fb1270f341d36a39695e2950a469c5eac74f98457
+  url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.xz
+  sha256: c4ed491517a94118a7a611810eeb92645d42ffd82280dcd51be8cc2ba1aabba5
   patches:
     # https://patchwork.freedesktop.org/patch/214086/
     - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
