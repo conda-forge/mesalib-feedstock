@@ -35,8 +35,8 @@ requirements:
       - llvmdev
       - expat
       - zlib
-  run:
-    - __osx >=10.2  # [osx]
+  run_constrained:
+    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
 
 test:
   commands:
