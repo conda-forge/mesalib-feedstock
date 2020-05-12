@@ -35,6 +35,8 @@ requirements:
       - llvmdev
       - expat
       - zlib
+  run:
+    - __osx >=10.2  # [osx]
 
 test:
   commands:
