@@ -48,7 +48,7 @@ requirements:
     - xorg-glproto
     - xorg-xf86vidmodeproto
     - xorg-libxdamage
-    - xorg-libxrandr               # [osx]
+    - xorg-libxrandr
     - xorg-libxfixes
 
   run:
@@ -58,7 +58,8 @@ requirements:
     - xorg-xextproto
     - xorg-glproto
     - xorg-xf86vidmodeproto
-    - xorg-libxdamage              # [linux]
+    - xorg-libxrandr
+    - xorg-libxdamage
     - xorg-libxfixes
 
   run_constrained:
@@ -89,7 +90,7 @@ test:
     - pkg-config --exists glesv2
     - pkg-config --exists osmesa
     # Disable gl, egl for linux, issue with xxf86vm missing dependency, disbale OpenGL?
-    - pkg-config --exists gl        # [osx]
+    # - pkg-config --exists gl
     # - pkg-config --exists egl
     - pkg-config --exists gbm       # [linux]
 
