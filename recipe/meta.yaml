@@ -12,7 +12,7 @@ source:
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.xz
   sha256: 6800271c2be2a0447510eb4e9b67edd9521859a4d565310617c4b359eb6799fe
   patches:
-    - 0001_syscall_kcmp.patch
+    - 0001-syscall_kcmp.patch
 
 build:
   skip: True  # [win]
