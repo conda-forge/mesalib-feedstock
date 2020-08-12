@@ -1,0 +1,14 @@
+diff --git a/src/util/os_file.c b/src/util/os_file.c
+index 5771b27e5d0..a3c524c8aa6 100644
+--- a/src/util/os_file.c
++++ b/src/util/os_file.c
+@@ -40,6 +40,9 @@ os_file_create_unique(const char *filename, int filemode)
+ 
+ /* copied from <linux/kcmp.h> */
+ #define KCMP_FILE 0
++#if !defined(SYS_kcmp)
++#define SYS_kcmp 272
++#endif
+ 
+ static ssize_t
+ readN(int fd, char *buf, size_t len)

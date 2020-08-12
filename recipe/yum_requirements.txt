@@ -1,0 +1,4 @@
+xorg-x11-proto-devel
+libXxf86vm-devel
+libxshmfence-devel
+mesa-libglapi
