@@ -11,7 +11,7 @@ cdt_name:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge mesalib_dev
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -20,10 +20,16 @@ docker_image:
 - condaforge/linux-anvil-aarch64
 expat:
 - '2.2'
+ncurses:
+- '6.2'
 pin_run_as_build:
   expat:
     max_pin: x.x
+  ncurses:
+    max_pin: x.x
   zlib:
     max_pin: x.x
+target_platform:
+- linux-aarch64
 zlib:
 - '1.2'
