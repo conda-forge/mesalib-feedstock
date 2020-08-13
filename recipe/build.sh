@@ -10,12 +10,11 @@ meson builddir/ \
   -Dvulkan-drivers=[] \
   -Dgallium-drivers=swrast \
   -Ddri-drivers=[] \
-  -Dbuild-tests=true \
   -Dllvm=false 
 
 ninja -C builddir/ -j ${CPU_COUNT}
 
 ninja -C builddir/ install
 
-meson test -C builddir/ \
-  -t 4
+# meson test -C builddir/ \
+#   -t 4
