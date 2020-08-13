@@ -17,4 +17,5 @@ ninja -C builddir/ -j ${CPU_COUNT}
 
 ninja -C builddir/ install
 
-meson test -C builddir/
+meson test -C builddir/ \
+  -t 4
