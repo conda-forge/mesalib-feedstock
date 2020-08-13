@@ -37,30 +37,30 @@ requirements:
   host:
     - expat
     - zlib
-    - libdrm                       # [linux]
-    - elfutils                     # [linux]
+    - libdrm                       # [linux and not (aarch64 or ppc64le)]
+    - elfutils                     # [linux and not (aarch64 or ppc64le)]
     - ncurses
     - llvmdev
     - xorg-libx11
-    - xorg-libxcb
     - xorg-libxext
     - xorg-xextproto
-    - xorg-glproto
     - xorg-xf86vidmodeproto
-    - xorg-libxdamage
     - xorg-libxrandr
     - xorg-libxfixes
+    - xorg-glproto                 # [not (aarch64 or ppc64le)]
+    - xorg-libxcb                  # [not (aarch64 or ppc64le)]
+    - xorg-libxdamage              # [not (aarch64 or ppc64le)]
 
   run:
     - xorg-libx11
-    - xorg-libxcb
     - xorg-libxext
     - xorg-xextproto
-    - xorg-glproto
     - xorg-xf86vidmodeproto
     - xorg-libxrandr
-    - xorg-libxdamage
     - xorg-libxfixes
+    - xorg-glproto                 # [not (aarch64 or ppc64le)]
+    - xorg-libxcb                  # [not (aarch64 or ppc64le)]
+    - xorg-libxdamage              # [not (aarch64 or ppc64le)]
 
   run_constrained:
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
