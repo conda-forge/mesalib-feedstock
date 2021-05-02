@@ -12,6 +12,7 @@ source:
   patches:
     # https://patchwork.freedesktop.org/patch/214086/
     - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
+    - math_h.patch
 
 build:
   skip: True  # [win]
