@@ -1,16 +1,15 @@
 {% set name = "mesaLib" %}
-{% set pkg_version = "20.1.4.rc1" %}
-{% set version = "20.1.4" %}
+{% set version = "21.0.3" %}
 {% set build = 0 %}
 
 package:
   name: {{ name|lower }}
-  version: "{{ pkg_version }}"
+  version: "{{ version }}"
 
 source:
   fn: mesa-{{ version }}.tar.xz
   url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.xz
-  sha256: 6800271c2be2a0447510eb4e9b67edd9521859a4d565310617c4b359eb6799fe
+  sha256: 565c6f4bd2d5747b919454fc1d439963024fc78ca56fd05158c3b2cde2f6912b
   patches:
     - 0001-syscall_kcmp.patch
 
