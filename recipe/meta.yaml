@@ -48,7 +48,7 @@ requirements:
     - xorg-libxrandr
     - xorg-libxfixes
     - xorg-glproto
-    - xorg-libxcb
+    - libxcb
     - xorg-libxdamage
 
   run:
@@ -59,7 +59,7 @@ requirements:
     - xorg-libxrandr
     - xorg-libxfixes
     - xorg-glproto
-    - xorg-libxcb
+    - libxcb
     - xorg-libxdamage
 
   run_constrained:
