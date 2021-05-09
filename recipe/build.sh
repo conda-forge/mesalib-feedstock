@@ -4,7 +4,7 @@ meson builddir/ \
   -Dbuildtype=release \
   -Dprefix=$PREFIX \
   -Dlibdir=lib \
-  -Dplatforms=x11,drm \
+  -Dplatforms=x11 \
   -Dosmesa=gallium \
   -Dosmesa-bits=8 \
   -Dvulkan-drivers=[] \
