@@ -8,6 +8,7 @@ meson builddir/ \
   -Dosmesa=gallium \
   -Dosmesa-bits=8 \
   -Dvulkan-drivers=[] \
+  -Dgallium=true \
   -Dgallium-drivers=swrast \
   -Ddri-drivers=[] \
   -Dllvm=false
