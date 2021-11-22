@@ -161,6 +161,8 @@ Feedstock Maintainers
 =====================
 
 * [@danlipsa](https://github.com/danlipsa/)
+* [@dnadeau4](https://github.com/dnadeau4/)
+* [@doutriaux1](https://github.com/doutriaux1/)
 * [@downiec](https://github.com/downiec/)
 * [@hmaarrfk](https://github.com/hmaarrfk/)
 * [@jasonb5](https://github.com/jasonb5/)
