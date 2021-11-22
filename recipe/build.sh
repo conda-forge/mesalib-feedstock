@@ -1,14 +1,15 @@
 #!/bin/bash
 
+set -ex
+
 meson builddir/ \
   -Dbuildtype=release \
   -Dprefix=$PREFIX \
   -Dlibdir=lib \
   -Dplatforms=x11 \
-  -Dosmesa=gallium \
+  -Dosmesa=true \
   -Dosmesa-bits=8 \
   -Dvulkan-drivers=[] \
-  -Dgallium=true \
   -Dgallium-drivers=swrast \
   -Ddri-drivers=[] \
   -Dllvm=false
