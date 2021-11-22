@@ -1,52 +1,102 @@
 {% set name = "mesaLib" %}
-{% set version = "18.0.0" %}
+{% set version = "21.2.5" %}
 
 package:
   name: {{ name|lower }}
   version: "{{ version }}"
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.gz
-  sha256: 93c2d3504b2871ac2146603fb1270f341d36a39695e2950a469c5eac74f98457
-  patches:
-    # https://patchwork.freedesktop.org/patch/214086/
-    - 1-1-gallivm-Fix-build-after-llvm-r328839.patch
+  fn: mesa-{{ version }}.tar.xz
+  url: ftp://ftp.freedesktop.org/pub/mesa/mesa-{{ version }}.tar.xz
+  sha256: 8e49585fb760d973723dab6435d0c86f7849b8305b1e6d99f475138d896bacbb
 
 build:
   skip: True  # [win]
-  number: 1
-  # Do we still need this???? - hmaarrfk - 18.0.0 -- April 2020
+  number: 0
+
   track_features:
-      - mesalib
+    - mesalib
 
 requirements:
   build:
-      - {{ compiler('c') }}
-      - {{ compiler('cxx') }}
-      - pkg-config
-      # still too hard to get rid of python2
-      - python 2
-      - mako
-      - zlib
-      - make
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ cdt('xorg-x11-proto-devel') }}
+    - {{ cdt('libxxf86vm-devel') }}
+    - {{ cdt('libxshmfence-devel') }}
+    - sysroot_linux-64 2.17  # [linux64]
+    - meson
+    - mako
+    - flex
+    - bison
+    - pkg-config
+
   host:
-      - pthread-stubs
-      - llvmdev
-      - expat
-      - zlib
+    - expat
+    - zlib
+    - libdrm                       # [linux]
+    - elfutils                     # [linux]
+    - ncurses
+    - llvmdev
+    - xorg-libx11
+    - xorg-libxext
+    - xorg-xextproto
+    - xorg-xf86vidmodeproto
+    - xorg-libxrandr
+    - xorg-libxfixes
+    - xorg-glproto
+    - libxcb
+    - xorg-libxdamage
+
+  run:
+    - xorg-libx11
+    - xorg-libxext
+    - xorg-xextproto
+    - xorg-xf86vidmodeproto
+    - xorg-libxrandr
+    - xorg-libxfixes
+    - xorg-glproto
+    - xorg-libxdamage
+
   run_constrained:
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
 
 test:
+  requires:
+    - pkg-config
+
   commands:
-      - test -f $PREFIX/lib/libOSMesa32${SHLIB_EXT}  # [unix]
+    - test -f $PREFIX/lib/dri/kms_swrast_dri${SHLIB_EXT}  # [linux]
+    - test -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}      # [linux]
+    - test -f $PREFIX/lib/libgbm${SHLIB_EXT}              # [linux]
+    - test -f $PREFIX/lib/libGLESv1_CM${SHLIB_EXT}        # [linux]
+    - test -f $PREFIX/lib/libGLESv2${SHLIB_EXT}           # [linux]
+    - test -f $PREFIX/lib/libEGL${SHLIB_EXT}              # [linux]
+    - test -f $PREFIX/lib/libGL${SHLIB_EXT}               # [linux]
+    - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}           # [linux]
+    - test -f $PREFIX/lib/libglapi${SHLIB_EXT}            # [linux]
+
+    - test -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}  # [osx]
+    - test -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}     # [osx]
+    - test -f $PREFIX/lib/libOSMesa.8${SHLIB_EXT}     # [osx]
+    - test -f $PREFIX/lib/libGL.1${SHLIB_EXT}         # [osx]
+    - test -f $PREFIX/lib/libglapi.0${SHLIB_EXT}      # [osx]
+
+    - pkg-config --exists glesv1_cm
+    - pkg-config --exists glesv2
+    - pkg-config --exists osmesa
+    # - pkg-config --exists gl
+    # - pkg-config --exists egl
+    - pkg-config --exists gbm       # [linux]
 
 about:
-  home: http://www.mesa3d.org
+  home: https://www.mesa3d.org
   license: MIT
-  license_file: docs/license.html
+  license_family: MIT
+  license_file: docs/license.rst
   summary: Mesa is an open-source implementation of the OpenGL specification - a system for rendering interactive 3D graphics.
+  dev_url: https://gitlab.freedesktop.org/mesa/mesa
+  doc_url: https://docs.mesa3d.org/
 
 extra:
     recipe-maintainers:
@@ -58,3 +108,4 @@ extra:
       - muryanto1
       - downiec
       - jasonb5
+      - matthiasdiener

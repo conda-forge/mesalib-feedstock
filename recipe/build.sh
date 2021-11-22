@@ -1,32 +1,23 @@
 #!/bin/bash
+
 set -ex
 
-osname=`uname`
+meson builddir/ \
+  -Dbuildtype=release \
+  -Dprefix=$PREFIX \
+  -Dlibdir=lib \
+  -Dplatforms=x11 \
+  -Dosmesa=true \
+  -Dosmesa-bits=8 \
+  -Dvulkan-drivers=[] \
+  -Dgallium-drivers=swrast \
+  -Ddri-drivers=[] \
+  -Dllvm=false
 
-export CFLAGS="-Wno-implicit-function-declaration ${CFLAGS} -std=c11 -Wno-implicit-function-declaration"
-echo $CFLAGS
+ninja -C builddir/ -j ${CPU_COUNT}
 
-./configure \
-    --prefix=$PREFIX \
-    --disable-gles1 \
-    --disable-gles2 \
-    --disable-va \
-    --disable-gbm \
-    --disable-xvmc \
-    --disable-vdpau \
-    --enable-shared-glapi \
-    --enable-texture-float \
-    --disable-dri \
-    --with-dri-drivers= \
-    --with-gallium-drivers=swrast \
-    --disable-egl \
-    --with-egl-platforms= \
-    --enable-gallium-osmesa \
-    --disable-glx \
-    --enable-llvm \
-    --disable-llvm-shared-libs \
-    --with-osmesa-bits=32
+ninja -C builddir/ install
 
-make -j${CPU_COUNT}
-make install
+# meson test -C builddir/ \
+#   -t 4
 
