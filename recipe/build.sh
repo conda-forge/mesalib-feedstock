@@ -10,7 +10,7 @@ meson builddir/ \
   -Dvulkan-drivers=[] \
   -Dgallium-drivers=swrast \
   -Ddri-drivers=[] \
-  -Dllvm=false
+  -Dllvm=false || { cat builddir/meson-logs/meson-log.txt; exit 1; }
 
 ninja -C builddir/ -j ${CPU_COUNT}
 
