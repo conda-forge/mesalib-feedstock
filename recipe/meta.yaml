@@ -24,7 +24,6 @@ requirements:
     - {{ cdt('xorg-x11-proto-devel') }}
     - {{ cdt('libxxf86vm-devel') }}
     - {{ cdt('libxshmfence-devel') }}
-    - {{ cdt('mesa-libgl-devel') }}  # linux
     - sysroot_linux-64 2.17  # [linux64]
     - meson
     - mako
