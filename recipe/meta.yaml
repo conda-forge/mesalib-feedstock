@@ -92,10 +92,12 @@ test:
     - pkg-config --exists gbm       # [linux]
 
 about:
-  home: http://www.mesa3d.org
+  home: https://www.mesa3d.org
   license: MIT
   license_file: docs/license.html
   summary: Mesa is an open-source implementation of the OpenGL specification - a system for rendering interactive 3D graphics.
+  dev_url: https://gitlab.freedesktop.org/mesa/mesa
+  doc_url: https://docs.mesa3d.org/
 
 extra:
     recipe-maintainers:
@@ -105,3 +107,4 @@ extra:
       - muryanto1
       - downiec
       - jasonb5
+      - matthiasdiener

@@ -1,13 +1,17 @@
 About mesalib
 =============
 
-Home: http://www.mesa3d.org
+Home: https://www.mesa3d.org
 
 Package license: MIT
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/mesalib-feedstock/blob/master/LICENSE.txt)
 
 Summary: Mesa is an open-source implementation of the OpenGL specification - a system for rendering interactive 3D graphics.
+
+Development: https://gitlab.freedesktop.org/mesa/mesa
+
+Documentation: https://docs.mesa3d.org/
 
 Current build status
 ====================
@@ -160,6 +164,7 @@ Feedstock Maintainers
 * [@downiec](https://github.com/downiec/)
 * [@hmaarrfk](https://github.com/hmaarrfk/)
 * [@jasonb5](https://github.com/jasonb5/)
+* [@matthiasdiener](https://github.com/matthiasdiener/)
 * [@muryanto1](https://github.com/muryanto1/)
 * [@sankhesh](https://github.com/sankhesh/)
 
