@@ -3,9 +3,7 @@
 set -ex
 
 meson builddir/ \
-  -Dbuildtype=release \
-  -Dprefix=$PREFIX \
-  -Dlibdir=lib \
+  ${MESON_ARGS} \
   -Dplatforms=x11 \
   -Dosmesa=true \
   -Dosmesa-bits=8 \
