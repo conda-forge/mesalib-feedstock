@@ -56,7 +56,6 @@ requirements:
     - xorg-libxrandr
     - xorg-libxfixes
     - xorg-glproto
-    - libxcb
     - xorg-libxdamage
 
   run_constrained:
@@ -86,9 +85,8 @@ test:
     - pkg-config --exists glesv1_cm
     - pkg-config --exists glesv2
     - pkg-config --exists osmesa
-    # Disable gl, egl for linux, issue with xxf86vm missing dependency, disbale OpenGL?
-    # - pkg-config --exists gl
-    # - pkg-config --exists egl
+    - pkg-config --exists gl
+    - pkg-config --exists egl
     - pkg-config --exists gbm       # [linux]
 
 about:
