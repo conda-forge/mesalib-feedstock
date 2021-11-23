@@ -2,7 +2,10 @@
 
 set -ex
 
-cat $BUILD_PREFIX/meson_cross_file.txt
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
+  cat $BUILD_PREFIX/meson_cross_file.txt
+  sed -i.bak "s/cc.get_define..ETIME., prefix : .#include <errno.h>../'foo'/" meson.build
+fi
 
 echo ${MESON_ARGS}
 
