@@ -2,8 +2,15 @@
 
 set -ex
 
+cat $BUILD_PREFIX/meson_cross_file.txt
+
+echo ${MESON_ARGS}
+
 meson builddir/ \
   ${MESON_ARGS} \
+  -Dbuildtype=release \
+  -Dprefix=$PREFIX \
+  -Dlibdir=lib \
   -Dplatforms=x11 \
   -Dosmesa=true \
   -Dosmesa-bits=8 \
