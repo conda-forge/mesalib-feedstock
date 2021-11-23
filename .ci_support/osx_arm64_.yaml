@@ -1,5 +1,5 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '10.12'
+- '11.0'
 c_compiler:
 - clang
 c_compiler_version:
@@ -16,8 +16,6 @@ expat:
 - '2'
 macos_machine:
 - arm64-apple-darwin20.0.0
-macos_min_version:
-- '10.12'
 ncurses:
 - '6.2'
 pin_run_as_build:
