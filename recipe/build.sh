@@ -8,7 +8,7 @@ echo ${MESON_ARGS}
 
 meson builddir/ \
   ${MESON_ARGS} \
-  -Dbuildtype=release \
+  --buildtype=release \
   --prefix=$PREFIX \
   -Dlibdir=lib \
   -Dplatforms=x11 \
