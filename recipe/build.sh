@@ -6,12 +6,10 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   # Add pkg-config to cross-file binaries since meson will disable it
   # See https://github.com/mesonbuild/meson/issues/7276
   echo "[binaries]" >> $BUILD_PREFIX/meson_cross_file.txt
-  echo "pkg-config = $(which pkg-config)" >> $BUILD_PREFIX/meson_cross_file.txt
+  echo "pkg-config = '${BUILD_PREFIX/_build_env/../_build_env/bin/pkg-config}'" >> $BUILD_PREFIX/meson_cross_file.txt
 
   cat $BUILD_PREFIX/meson_cross_file.txt
 fi
-
-echo ${MESON_ARGS}
 
 meson builddir/ \
   ${MESON_ARGS} \
