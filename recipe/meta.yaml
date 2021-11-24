@@ -12,7 +12,7 @@ source:
 
 build:
   skip: True  # [win]
-  number: 0
+  number: 1
 
   track_features:
     - mesalib
@@ -21,9 +21,9 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ cdt('xorg-x11-proto-devel') }}
-    - {{ cdt('libxxf86vm-devel') }}
-    - {{ cdt('libxshmfence-devel') }}
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    - {{ cdt('libxxf86vm-devel') }}      # [linux]
+    - {{ cdt('libxshmfence-devel') }}    # [linux]
     - sysroot_linux-64 2.17  # [linux64]
     - meson
     - mako
@@ -64,7 +64,6 @@ requirements:
 test:
   requires:
     - pkg-config
-
   commands:
     - test -f $PREFIX/lib/dri/kms_swrast_dri${SHLIB_EXT}  # [linux]
     - test -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}      # [linux]
