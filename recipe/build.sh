@@ -18,7 +18,6 @@ meson builddir/ \
   -Dlibdir=lib \
   -Dplatforms=x11 \
   -Dosmesa=true \
-  -Dosmesa-bits=8 \
   -Dvulkan-drivers=[] \
   -Dgallium-drivers=swrast \
   -Ddri-drivers=[] \
