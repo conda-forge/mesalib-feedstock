@@ -9,13 +9,27 @@ meson builddir/ \
   ${MESON_ARGS} \
   --buildtype=release \
   --prefix=$PREFIX \
-  -Dlibdir=lib \
   -Dplatforms=x11 \
+  -Dgles1=false \
+  -Dgles2=false \
+  -Dgallium-va=disabled \
+  -Dgbm=disabled \
+  -Dgallium-xvmc=disabled \
+  -Dgallium-vdpau=disabled \
+  -Dshared-glapi=enabled \
+  -Ddri3=disabled \
+  -Ddri-drivers=[] \
+  -Dgallium-drivers=swrast \
+  -Degl=disabled \
+  -Dglx=disabled \
+  -Dllvm=false \
+  -Dshared-llvm=false \
+  -Dlibdir=lib \
   -Dosmesa=true \
   -Dvulkan-drivers=[] \
-  -Dgallium-drivers=swrast \
-  -Ddri-drivers=[] \
-  -Dllvm=false || { cat builddir/meson-logs/meson-log.txt; exit 1; }
+  -Dopengl=true \
+  -Dglx-direct=false \
+  || { cat builddir/meson-logs/meson-log.txt; exit 1; }
 
 ninja -C builddir/ -j ${CPU_COUNT}
 
