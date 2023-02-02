@@ -30,7 +30,7 @@ requirements:
     - flex
     - bison
     - pkg-config
-    - llvm
+    - llvmdev
 
   host:
     - expat
@@ -48,7 +48,6 @@ requirements:
     - xorg-glproto
     - libxcb
     - xorg-libxdamage
-    - llvm
 
   run:
     - xorg-libx11
