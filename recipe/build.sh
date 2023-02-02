@@ -13,7 +13,6 @@ meson setup builddir/ \
   -Dgles2=false \
   -Dgallium-va=disabled \
   -Dgbm=disabled \
-  -Dgallium-xvmc=disabled \
   -Dgallium-vdpau=disabled \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
