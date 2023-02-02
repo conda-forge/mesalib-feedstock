@@ -4,8 +4,7 @@ set -ex
 
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
-
-meson builddir/ \
+meson setup builddir/ \
   ${MESON_ARGS} \
   --buildtype=release \
   --prefix=$PREFIX \
