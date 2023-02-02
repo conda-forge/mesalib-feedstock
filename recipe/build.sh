@@ -9,8 +9,8 @@ meson setup builddir/ \
   --buildtype=release \
   --prefix=$PREFIX \
   -Dplatforms=x11 \
-  -Dgles1=false \
-  -Dgles2=false \
+  -Dgles1=disabled \
+  -Dgles2=disabled \
   -Dgallium-va=disabled \
   -Dgbm=disabled \
   -Dgallium-vdpau=disabled \
