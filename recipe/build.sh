@@ -20,8 +20,8 @@ meson setup builddir/ \
   -Dgallium-drivers=swrast \
   -Degl=disabled \
   -Dglx=disabled \
-  -Dllvm=true \
-  -Dshared-llvm=true \
+  -Dllvm=enabled \
+  -Dshared-llvm=enabled \
   -Dlibdir=lib \
   -Dosmesa=true \
   -Dvulkan-drivers=[] \
