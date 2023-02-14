@@ -1,6 +1,6 @@
-# New versions need open_memstream
-# which is supported in 10.13 and later
+# New versions need clock_gettime
+# which is supported in 10.12 and later
 macos_min_version:             # [osx and x86_64]
-  - 10.14                      # [osx and x86_64]
+  - 10.12                      # [osx and x86_64]
 MACOSX_DEPLOYMENT_TARGET:      # [osx and x86_64]
-  - 10.14                      # [osx and x86_64]
+  - 10.12                      # [osx and x86_64]
