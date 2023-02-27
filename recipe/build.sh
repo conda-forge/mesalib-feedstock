@@ -5,16 +5,21 @@ set -ex
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
-meson builddir/ \
+if [[ "${target_platform}" == linux-* ]]; then
+    LLVM_ENABLED=true
+else
+    LLVM_ENABLED=false
+fi
+
+meson setup builddir/ \
   ${MESON_ARGS} \
   --buildtype=release \
   --prefix=$PREFIX \
   -Dplatforms=x11 \
-  -Dgles1=false \
-  -Dgles2=false \
+  -Dgles1=disabled \
+  -Dgles2=disabled \
   -Dgallium-va=disabled \
   -Dgbm=disabled \
-  -Dgallium-xvmc=disabled \
   -Dgallium-vdpau=disabled \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
@@ -22,8 +27,8 @@ meson builddir/ \
   -Dgallium-drivers=swrast \
   -Degl=disabled \
   -Dglx=disabled \
-  -Dllvm=false \
-  -Dshared-llvm=false \
+  -Dllvm=$LLVM_ENABLED \
+  -Dshared-llvm=$LLVM_ENABLED \
   -Dlibdir=lib \
   -Dosmesa=true \
   -Dvulkan-drivers=[] \
