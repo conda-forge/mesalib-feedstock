@@ -1,17 +1,17 @@
 {% set name = "mesaLib" %}
-{% set version = "22.3.3" %}
+{% set version = "23.0.0" %}
 
 package:
   name: {{ name|lower }}
-  version: "{{ version }}"
+  version: {{ version }}
 
 source:
   fn: mesa-{{ version }}.tar.xz
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
-  sha256: bed799788bf2bd9ef079d97cd8e09348bf53cb086818578e40773b2b17812922
+  sha256: 01f3cff3763f09e0adabcb8011e4aebc6ad48f6a4dd4bae904fe918707d253e4
 
 build:
-  skip: True  # [win]
+  skip: true  # [win]
   number: 0
 
   track_features:
@@ -31,7 +31,6 @@ requirements:
     - bison
     - pkg-config
     - llvmdev                      # [linux]
-
   host:
     - expat
     - zlib
@@ -102,13 +101,13 @@ about:
   doc_url: https://docs.mesa3d.org/
 
 extra:
-    recipe-maintainers:
-      - dnadeau4
-      - doutriaux1
-      - sankhesh
-      - danlipsa
-      - hmaarrfk
-      - muryanto1
-      - downiec
-      - jasonb5
-      - matthiasdiener
+  recipe-maintainers:
+    - dnadeau4
+    - doutriaux1
+    - sankhesh
+    - danlipsa
+    - hmaarrfk
+    - muryanto1
+    - downiec
+    - jasonb5
+    - matthiasdiener
