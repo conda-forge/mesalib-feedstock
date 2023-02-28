@@ -8,7 +8,7 @@ export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 if [[ "${target_platform}" == linux-* ]]; then
     LLVM_ENABLED=true
 else
-    LLVM_ENABLED=true
+    LLVM_ENABLED=false
 fi
 
 meson setup builddir/ \
