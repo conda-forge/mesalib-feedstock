@@ -30,7 +30,8 @@ requirements:
     - flex
     - bison
     - pkg-config
-    - llvm    # [linux]
+    - llvm     # [linux]
+    - llvmdev  # [linux]
   host:
     - expat
     - zlib
