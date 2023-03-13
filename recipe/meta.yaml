@@ -37,7 +37,8 @@ requirements:
     - libdrm                       # [linux]
     - elfutils                     # [linux]
     - ncurses
-    - llvm
+    - llvm     # [linux]
+    - llvmdev  # [linux]
     - xorg-libx11
     - xorg-libxext
     - xorg-xextproto
