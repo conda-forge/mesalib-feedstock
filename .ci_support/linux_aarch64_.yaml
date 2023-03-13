@@ -18,6 +18,8 @@ cxx_compiler_version:
 - '11'
 docker_image:
 - quay.io/condaforge/linux-anvil-aarch64
+elfutils:
+- '0.189'
 expat:
 - '2'
 ncurses:
