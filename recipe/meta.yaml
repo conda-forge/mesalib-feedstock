@@ -31,7 +31,6 @@ requirements:
     - bison
     - pkg-config
     - llvm     # [linux]
-    - llvmdev  # [linux]
   host:
     - expat
     - zlib
