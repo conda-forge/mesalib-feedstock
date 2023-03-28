@@ -2,11 +2,9 @@
 
 set -ex
 
-if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
-  # Use Meson cross-file flag to enable cross compilation
-  EXTRA_FLAGS="--cross-file $BUILD_PREFIX/meson_cross_file.txt -Dintrospection=disabled"
-else
-  EXTRA_FLAGS=""
+if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]] && [[ "${target_platform}" == linux-* ]] ; then
+    # https://github.com/mesonbuild/meson/issues/4254
+    export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
 fi
 
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
