@@ -2,6 +2,13 @@
 
 set -ex
 
+if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
+  # Use Meson cross-file flag to enable cross compilation
+  EXTRA_FLAGS="--cross-file $BUILD_PREFIX/meson_cross_file.txt -Dintrospection=disabled"
+else
+  EXTRA_FLAGS=""
+fi
+
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
@@ -34,6 +41,7 @@ meson setup builddir/ \
   -Dvulkan-drivers=[] \
   -Dopengl=true \
   -Dglx-direct=false \
+  ${EXTRA_FLAGS} \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }
 
 ninja -C builddir/ -j ${CPU_COUNT}
