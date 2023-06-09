@@ -6,9 +6,9 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
 if [[ "${target_platform}" == linux-* ]]; then
-    LLVM_ENABLED=true
+    LLVM_ENABLED=enabled
 else
-    LLVM_ENABLED=false
+    LLVM_ENABLED=disabled
 fi
 
 meson setup builddir/ \
@@ -23,7 +23,6 @@ meson setup builddir/ \
   -Dgallium-vdpau=disabled \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
-  -Ddri-drivers=[] \
   -Dgallium-drivers=swrast \
   -Degl=disabled \
   -Dglx=disabled \
