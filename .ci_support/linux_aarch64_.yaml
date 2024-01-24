@@ -19,7 +19,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-aarch64
 elfutils:
-- '0.189'
+- '0.190'
 expat:
 - '2'
 libxcb:
