@@ -7,6 +7,10 @@ export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
 if [[ "${target_platform}" == linux-* ]]; then
     LLVM_ENABLED=enabled
+    if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
+        # https://github.com/mesonbuild/meson/issues/4254
+        export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
+    fi
 else
     LLVM_ENABLED=disabled
 fi
