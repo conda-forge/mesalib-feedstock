@@ -201,6 +201,5 @@ Feedstock Maintainers
 * [@hmaarrfk](https://github.com/hmaarrfk/)
 * [@jasonb5](https://github.com/jasonb5/)
 * [@matthiasdiener](https://github.com/matthiasdiener/)
-* [@muryanto1](https://github.com/muryanto1/)
 * [@sankhesh](https://github.com/sankhesh/)
 
