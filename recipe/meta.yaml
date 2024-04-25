@@ -1,5 +1,5 @@
 {% set name = "mesaLib" %}
-{% set version = "24.0.4" %}
+{% set version = "24.0.6" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: mesa-{{ version }}.tar.xz
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
-  sha256: 90febd30a098cbcd97ff62ecc3dcf5c93d76f7fa314de944cfce81951ba745f0
+  sha256: 8b7a92dbe6468c18f2383700135b5fe9de836cdf0cc8fd7dbae3c7110237d604
 
 build:
   skip: true  # [win]
@@ -20,11 +20,11 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
     - {{ cdt('libxxf86vm-devel') }}      # [linux]
     - {{ cdt('libxshmfence-devel') }}    # [linux]
-    - sysroot_linux-64 2.17  # [linux64]
     - meson
     - mako
     - flex
@@ -61,8 +61,6 @@ requirements:
     - xorg-glproto
     - xorg-libxdamage
 
-  run_constrained:
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
 
 test:
   requires:
