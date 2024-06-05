@@ -26,8 +26,6 @@ elfutils:
 - '0.191'
 expat:
 - '2'
-libxcb:
-- '1.15'
 ncurses:
 - '6'
 target_platform:
