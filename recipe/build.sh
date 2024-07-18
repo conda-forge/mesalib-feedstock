@@ -17,7 +17,6 @@ fi
 
 meson setup builddir/ \
   ${MESON_ARGS} \
-  --buildtype=release \
   --prefix=$PREFIX \
   -Dplatforms=x11 \
   -Dgles1=disabled \
