@@ -2,8 +2,8 @@
 
 set -ex
 
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
-export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:${PREFIX}/lib/pkgconfig:${BUILD_PREFIX}/lib/pkgconfig"
+export PKG_CONFIG=${BUILD_PREFIX}/bin/pkg-config
 
 if [[ "${target_platform}" == linux-* ]]; then
     LLVM_ENABLED=enabled
@@ -15,7 +15,7 @@ else
     LLVM_ENABLED=disabled
 fi
 
-meson setup builddir/ \
+meson setup builddir \
   ${MESON_ARGS} \
   --prefix=$PREFIX \
   -Dplatforms=auto \
@@ -23,10 +23,10 @@ meson setup builddir/ \
   -Dgles2=disabled \
   -Dgallium-va=disabled \
   -Dgallium-vdpau=disabled \
+  -Dgallium-drivers=swrast \
   -Dgbm=enabled \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
-  -Dgallium-drivers=swrast \
   -Degl=disabled \
   -Dglx=disabled \
   -Dllvm=$LLVM_ENABLED \
