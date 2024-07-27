@@ -51,6 +51,7 @@ requirements:
     - libxcb
     - xorg-libxdamage
   run:
+    - wayland-protocols            # [linux]
     - xorg-libx11
     - xorg-libxext
     - xorg-xextproto
@@ -60,7 +61,6 @@ requirements:
     - xorg-libxfixes
     - xorg-glproto
     - xorg-libxdamage
-    - wayland-protocols
 
 test:
   requires:
