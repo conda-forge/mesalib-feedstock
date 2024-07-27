@@ -2,8 +2,8 @@
 
 set -ex
 
-export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:${PREFIX}/lib/pkgconfig:${BUILD_PREFIX}/lib/pkgconfig"
-export PKG_CONFIG=${BUILD_PREFIX}/bin/pkg-config
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:${BUILD_PREFIX}/lib/pkgconfig"
+export PKG_CONFIG="${BUILD_PREFIX}/bin/pkg-config"
 
 if [[ "${target_platform}" == linux-* ]]; then
     LLVM_ENABLED=enabled
@@ -24,7 +24,7 @@ meson setup builddir \
   -Dgallium-va=disabled \
   -Dgallium-vdpau=disabled \
   -Dgallium-drivers=swrast \
-  -Dgbm=enabled \
+  -Dgbm=$LLVM_ENABLED \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
   -Degl=disabled \
