@@ -13,7 +13,6 @@ source:
 build:
   skip: true  # [win]
   number: 0
-
   track_features:
     - mesalib
 
@@ -23,7 +22,6 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
-    - {{ cdt('libxxf86vm-devel') }}      # [linux]
     - {{ cdt('libxshmfence-devel') }}    # [linux]
     - meson
     - mako
@@ -44,17 +42,18 @@ requirements:
     - xorg-libx11
     - xorg-libxext
     - xorg-xextproto
+    - xorg-libxxf86vm
     - xorg-xf86vidmodeproto
     - xorg-libxrandr
     - xorg-libxfixes
     - xorg-glproto
     - libxcb
     - xorg-libxdamage
-
   run:
     - xorg-libx11
     - xorg-libxext
     - xorg-xextproto
+    - xorg-libxxf86vm
     - xorg-xf86vidmodeproto
     - xorg-libxrandr
     - xorg-libxfixes
@@ -71,11 +70,11 @@ test:
     # but that will take more effort
     - test ! -f $PREFIX/lib/dri/kms_swrast_dri${SHLIB_EXT}  # [linux]
     - test ! -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}      # [linux]
-    - test ! -f $PREFIX/lib/libgbm${SHLIB_EXT}              # [linux]
     - test ! -f $PREFIX/lib/libGLESv1_CM${SHLIB_EXT}        # [linux]
     - test ! -f $PREFIX/lib/libGLESv2${SHLIB_EXT}           # [linux]
     - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}              # [linux]
     - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}               # [linux]
+    - test -f $PREFIX/lib/libgbm${SHLIB_EXT}              # [linux]
     - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}           # [linux]
     - test -f $PREFIX/lib/libglapi${SHLIB_EXT}            # [linux]
 
@@ -90,7 +89,7 @@ test:
     - pkg-config --exists osmesa
     # - pkg-config --exists gl
     # - pkg-config --exists egl
-    # - pkg-config --exists gbm       # [linux]
+    - pkg-config --exists gbm       # [linux]
 
 about:
   home: https://www.mesa3d.org
@@ -111,3 +110,4 @@ extra:
     - downiec
     - jasonb5
     - matthiasdiener
+    - ehfd

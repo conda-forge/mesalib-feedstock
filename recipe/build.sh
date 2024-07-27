@@ -19,11 +19,12 @@ meson setup builddir/ \
   ${MESON_ARGS} \
   --prefix=$PREFIX \
   -Dplatforms=x11 \
+  -Dglvnd=enabled \
   -Dgles1=disabled \
   -Dgles2=disabled \
   -Dgallium-va=disabled \
-  -Dgbm=disabled \
   -Dgallium-vdpau=disabled \
+  -Dgbm=enabled \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
   -Dgallium-drivers=swrast \
@@ -44,4 +45,3 @@ ninja -C builddir/ install
 
 # meson test -C builddir/ \
 #   -t 4
-
