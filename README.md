@@ -198,6 +198,7 @@ Feedstock Maintainers
 * [@dnadeau4](https://github.com/dnadeau4/)
 * [@doutriaux1](https://github.com/doutriaux1/)
 * [@downiec](https://github.com/downiec/)
+* [@ehfd](https://github.com/ehfd/)
 * [@hmaarrfk](https://github.com/hmaarrfk/)
 * [@jasonb5](https://github.com/jasonb5/)
 * [@matthiasdiener](https://github.com/matthiasdiener/)
