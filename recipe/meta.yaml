@@ -1,5 +1,5 @@
 {% set name = "mesaLib" %}
-{% set version = "24.1.4" %}
+{% set version = "24.1.5" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: mesa-{{ version }}.tar.xz
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
-  sha256: 7cf7c6f665263ad0122889c1d4b076654c1eedea7a2f38c69c8c51579937ade1
+  sha256: 02761ffd965dd64b95421ebfca1191d73724aba00f30034009237564f34cf976
 
 build:
   skip: true  # [win]
