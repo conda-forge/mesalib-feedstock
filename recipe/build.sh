@@ -1,10 +1,16 @@
 #!/bin/bash
 
 set -ex
-if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
-    # https://github.com/mesonbuild/meson/issues/4254
-    export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
+if [[ "${target_platform}" == linux-* ]]; then
+    LLVM_ENABLED=enabled
+    if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
+        # https://github.com/mesonbuild/meson/issues/4254
+        export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
+    fi
+else
+    LLVM_ENABLED=disabled
 fi
+
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
@@ -22,8 +28,8 @@ meson setup builddir/ \
   -Dgallium-drivers=swrast \
   -Degl=disabled \
   -Dglx=disabled \
-  -Dllvm=enabled \
-  -Dshared-llvm=enabled \
+  -Dllvm=${LLVM_ENABLED} \
+  -Dshared-llvm=${LLVM_ENABLED} \
   -Dlibdir=lib \
   -Dosmesa=true \
   -Dvulkan-drivers=[] \
