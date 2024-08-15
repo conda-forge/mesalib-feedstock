@@ -6,7 +6,6 @@ package:
   version: {{ version }}
 
 source:
-  fn: mesa-{{ version }}.tar.xz
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
   sha256: c02bb72cea290f78b11895a0c95c7c92394f180d7ff66d4a762ec6950a58addf
 
@@ -20,11 +19,11 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ stdlib("c") }}
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
-    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
-    - {{ cdt('libxxf86vm-devel') }}      # [linux]
-    - {{ cdt('libxshmfence-devel') }}    # [linux]
+    # - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    # - {{ cdt('libxxf86vm-devel') }}      # [linux]
+    # - {{ cdt('libxshmfence-devel') }}    # [linux]
     - meson
     - mako
     - flex
@@ -41,6 +40,7 @@ requirements:
     - ncurses
     - llvm     # [linux]
     - llvmdev  # [linux]
+    - libxcb
     - xorg-libx11
     - xorg-libxext
     - xorg-xextproto
@@ -48,8 +48,9 @@ requirements:
     - xorg-libxrandr
     - xorg-libxfixes
     - xorg-glproto
-    - libxcb
     - xorg-libxdamage
+    - xorg-xproto      # [linux]
+    - xorg-libxxf86vm  # [linux]
 
   run:
     - xorg-libx11
