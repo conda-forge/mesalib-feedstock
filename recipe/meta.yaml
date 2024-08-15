@@ -25,6 +25,7 @@ requirements:
     # - {{ cdt('libxxf86vm-devel') }}      # [linux]
     # - {{ cdt('libxshmfence-devel') }}    # [linux]
     - meson
+    - pyyaml
     - mako
     - flex
     - bison
