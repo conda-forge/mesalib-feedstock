@@ -1,6 +1,10 @@
 #!/bin/bash
 
 set -ex
+
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
+export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+
 if [[ "${target_platform}" == linux-* ]]; then
     LLVM_ENABLED=enabled
     if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
@@ -10,9 +14,6 @@ if [[ "${target_platform}" == linux-* ]]; then
 else
     LLVM_ENABLED=disabled
 fi
-
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
-export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
 meson setup builddir/ \
   ${MESON_ARGS} \
@@ -28,8 +29,8 @@ meson setup builddir/ \
   -Dgallium-drivers=swrast \
   -Degl=disabled \
   -Dglx=disabled \
-  -Dllvm=${LLVM_ENABLED} \
-  -Dshared-llvm=${LLVM_ENABLED} \
+  -Dllvm=$LLVM_ENABLED \
+  -Dshared-llvm=$LLVM_ENABLED \
   -Dlibdir=lib \
   -Dosmesa=true \
   -Dvulkan-drivers=[] \
