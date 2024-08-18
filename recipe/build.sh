@@ -26,7 +26,7 @@ meson setup builddir/ \
   -Dgallium-vdpau=disabled \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
-  -Dgallium-drivers=swrast \
+  -Dgallium-drivers=softpipe,llvmpipe \
   -Degl=disabled \
   -Dglx=disabled \
   -Dllvm=$LLVM_ENABLED \
