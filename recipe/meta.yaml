@@ -21,9 +21,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
-    # - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
-    # - {{ cdt('libxxf86vm-devel') }}      # [linux]
-    # - {{ cdt('libxshmfence-devel') }}    # [linux]
     - meson
     - pyyaml
     - mako
