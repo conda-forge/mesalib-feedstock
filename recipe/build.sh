@@ -11,8 +11,10 @@ if [[ "${target_platform}" == linux-* ]]; then
         # https://github.com/mesonbuild/meson/issues/4254
         export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
     fi
+    GALLIUM_DRIVERS=softpipe,llvmpipe
 else
     LLVM_ENABLED=disabled
+    GALLIUM_DRIVERS=softpipe
 fi
 
 meson setup builddir/ \
@@ -26,7 +28,7 @@ meson setup builddir/ \
   -Dgallium-vdpau=disabled \
   -Dshared-glapi=enabled \
   -Ddri3=disabled \
-  -Dgallium-drivers=softpipe,llvmpipe \
+  -Dgallium-drivers=${GALLIUM_DRIVERS} \
   -Degl=disabled \
   -Dglx=disabled \
   -Dllvm=$LLVM_ENABLED \
