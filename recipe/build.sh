@@ -13,6 +13,9 @@ if [[ "${target_platform}" == linux-* ]]; then
     fi
     GALLIUM_DRIVERS=softpipe,llvmpipe
 else
+    # hmaaarrf - 2024/08
+    # OSX Has recentenly gained supporrt in 24.2.0
+    # for llvmpipe but I wasn't able to get it to work.
     LLVM_ENABLED=disabled
     GALLIUM_DRIVERS=softpipe
 fi
