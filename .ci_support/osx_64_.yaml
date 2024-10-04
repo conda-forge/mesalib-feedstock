@@ -21,7 +21,7 @@ cxx_compiler_version:
 expat:
 - '2'
 libxcb:
-- '1.16'
+- '1'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:

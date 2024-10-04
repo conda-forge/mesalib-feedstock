@@ -23,7 +23,7 @@ elfutils:
 expat:
 - '2'
 libxcb:
-- '1.16'
+- '1'
 ncurses:
 - '6'
 target_platform:

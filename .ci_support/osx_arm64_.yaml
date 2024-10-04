@@ -21,7 +21,7 @@ cxx_compiler_version:
 expat:
 - '2'
 libxcb:
-- '1.16'
+- '1'
 macos_machine:
 - arm64-apple-darwin20.0.0
 ncurses:
