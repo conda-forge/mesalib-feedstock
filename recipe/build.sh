@@ -30,7 +30,6 @@ meson setup builddir/ \
   -Dgbm=disabled \
   -Dgallium-vdpau=disabled \
   -Dshared-glapi=enabled \
-  -Ddri3=disabled \
   -Dgallium-drivers=${GALLIUM_DRIVERS} \
   -Degl=disabled \
   -Dglx=disabled \
