@@ -41,25 +41,12 @@ requirements:
     - libxcb
     - xorg-libx11
     - xorg-libxext
-    - xorg-xextproto
-    - xorg-xf86vidmodeproto
+    - xorg-xorgproto
     - xorg-libxrandr
     - xorg-libxfixes
-    - xorg-glproto
     - xorg-libxdamage
-    - xorg-xproto      # [linux]
-    - xorg-libxxf86vm  # [linux]
-
-  run:
-    - xorg-libx11
-    - xorg-libxext
-    - xorg-xextproto
-    - xorg-xf86vidmodeproto
-    - xorg-libxrandr
-    - xorg-libxfixes
-    - xorg-glproto
-    - xorg-libxdamage
-
+    - xorg-libxxf86vm    # [linux]
+    - xorg-libxshmfence  # [linux]
 
 test:
   requires:
