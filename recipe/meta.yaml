@@ -11,10 +11,12 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
   track_features:
     - mesalib
+  run_exports:
+    - {{ pin_subpackage('mesaLib', max_pin='x.x') }}
 
 requirements:
   build:
