@@ -16,7 +16,7 @@ build:
   track_features:
     - mesalib
   run_exports:
-    - {{ pin_subpackage('mesaLib', max_pin='x.x') }}
+    - {{ pin_subpackage('mesalib', max_pin='x.x') }}
 
 requirements:
   build:
