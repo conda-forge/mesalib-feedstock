@@ -1,8 +1,7 @@
-{% set name = "mesaLib" %}
 {% set version = "24.3.4" %}
 
 package:
-  name: {{ name|lower }}
+  name: mesalib
   version: {{ version }}
 
 source:
@@ -11,10 +10,12 @@ source:
 
 build:
   skip: true  # [win]
-  number: 0
+  number: 1
 
   track_features:
     - mesalib
+  run_exports:
+    - {{ pin_subpackage('mesalib', max_pin='x.x') }}
 
 requirements:
   build:
