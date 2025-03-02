@@ -11,6 +11,7 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
     rm $PREFIX/bin/llvm-config
     cp $BUILD_PREFIX/bin/llvm-config $PREFIX/bin/llvm-config
     install_name_tool -add_rpath $BUILD_PREFIX/lib $PREFIX/bin/llvm-config
+    export LLVM_CONFIG=${PREFIX}/bin/llvm-config
     LLVM_TOOLS_PREFIX="$BUILD_PREFIX"
   else
     # https://github.com/mesonbuild/meson/issues/4254
