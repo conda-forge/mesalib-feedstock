@@ -6,8 +6,16 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
 if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
+  if [[ "$target_platform" == osx-* ]]; then
+    # Mostly taken from https://github.com/conda-forge/pocl-feedstock/blob/b88046a851a95ab3c676c0b7815da8224bd66a09/recipe/build.sh#L52
+    rm $PREFIX/bin/llvm-config
+    cp $BUILD_PREFIX/bin/llvm-config $PREFIX/bin/llvm-config
+    install_name_tool -add_rpath $BUILD_PREFIX/lib $PREFIX/bin/llvm-config
+    LLVM_TOOLS_PREFIX="$BUILD_PREFIX"
+  else
     # https://github.com/mesonbuild/meson/issues/4254
     export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
+  fi
 fi
 
 meson setup builddir/ \
