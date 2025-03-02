@@ -28,8 +28,8 @@ requirements:
     - flex
     - bison
     - pkg-config
-    - llvm          # [linux]
-    - llvmdev       # [build_platform != target_platform and linux]
+    - llvm
+    - llvmdev       # [build_platform != target_platform]
   host:
     - expat
     - zlib
@@ -37,8 +37,8 @@ requirements:
     - libdrm                       # [linux]
     - elfutils                     # [linux]
     - ncurses
-    - llvm     # [linux]
-    - llvmdev  # [linux]
+    - llvm
+    - llvmdev
     - libxcb
     - xorg-libx11
     - xorg-libxext
