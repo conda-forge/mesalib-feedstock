@@ -22,7 +22,6 @@ fi
 
 meson setup builddir/ \
   ${MESON_ARGS} \
-  --prefix=$PREFIX \
   -Dplatforms=x11 \
   -Dgles1=disabled \
   -Dgles2=disabled \
