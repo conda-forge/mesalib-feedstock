@@ -5,24 +5,20 @@ set -ex
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
-if [[ "${target_platform}" == linux-* ]]; then
-    LLVM_ENABLED=enabled
-    if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
-        # https://github.com/mesonbuild/meson/issues/4254
-        export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
-    fi
-    GALLIUM_DRIVERS=softpipe,llvmpipe
-else
-    # hmaaarrf - 2024/08
-    # OSX Has recentenly gained supporrt in 24.2.0
-    # for llvmpipe but I wasn't able to get it to work.
-    LLVM_ENABLED=disabled
-    GALLIUM_DRIVERS=softpipe
+if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
+  if [[ "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
+    # Mostly taken from https://github.com/conda-forge/pocl-feedstock/blob/b88046a851a95ab3c676c0b7815da8224bd66a09/recipe/build.sh#L52
+    rm $PREFIX/bin/llvm-config
+    cp $BUILD_PREFIX/bin/llvm-config $PREFIX/bin/llvm-config
+    export LLVM_CONFIG=${PREFIX}/bin/llvm-config
+  else
+    # https://github.com/mesonbuild/meson/issues/4254
+    export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
+  fi
 fi
 
 meson setup builddir/ \
   ${MESON_ARGS} \
-  --prefix=$PREFIX \
   -Dplatforms=x11 \
   -Dgles1=disabled \
   -Dgles2=disabled \
@@ -30,11 +26,11 @@ meson setup builddir/ \
   -Dgbm=disabled \
   -Dgallium-vdpau=disabled \
   -Dshared-glapi=enabled \
-  -Dgallium-drivers=${GALLIUM_DRIVERS} \
+  -Dgallium-drivers=softpipe,llvmpipe \
   -Degl=disabled \
   -Dglx=disabled \
-  -Dllvm=$LLVM_ENABLED \
-  -Dshared-llvm=$LLVM_ENABLED \
+  -Dllvm=enabled \
+  -Dshared-llvm=enabled \
   -Dlibdir=lib \
   -Dosmesa=true \
   -Dvulkan-drivers=[] \
