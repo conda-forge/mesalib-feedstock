@@ -23,7 +23,6 @@ requirements:
     - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - meson
-    - cmake
     - pyyaml
     - mako
     - flex
