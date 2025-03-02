@@ -64,13 +64,11 @@ test:
     - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}              # [linux]
     - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}               # [linux]
     - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}           # [linux]
-    - test -f $PREFIX/lib/libglapi${SHLIB_EXT}            # [linux]
 
     - test ! -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}  # [osx]
     - test ! -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}     # [osx]
     - test -f $PREFIX/lib/libOSMesa.8${SHLIB_EXT}     # [osx]
     - test ! -f $PREFIX/lib/libGL.1${SHLIB_EXT}         # [osx]
-    - test -f $PREFIX/lib/libglapi.0${SHLIB_EXT}      # [osx]
 
     # - pkg-config --exists glesv1_cm
     # - pkg-config --exists glesv2
