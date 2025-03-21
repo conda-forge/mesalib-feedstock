@@ -38,6 +38,7 @@ requirements:
     - libdrm                       # [linux]
     - elfutils                     # [linux]
     - glslang
+    - spirv-tools
     - ncurses
     - llvm
     - llvmdev
