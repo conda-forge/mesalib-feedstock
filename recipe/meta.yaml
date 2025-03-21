@@ -48,6 +48,7 @@ requirements:
     - xorg-libxrandr
     - xorg-libxfixes
     - xorg-libxdamage
+    - xorg-libxshmfence  # [osx]
     - xorg-libxxf86vm    # [linux]
     - xorg-libxshmfence  # [linux]
 
