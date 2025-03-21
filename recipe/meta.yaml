@@ -30,7 +30,6 @@ requirements:
     - pkg-config
     - llvm
     - llvmdev       # [build_platform != target_platform]
-    - jq
     - glslang       # [build_platform != target_platform]
   host:
     - expat
