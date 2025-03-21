@@ -42,14 +42,6 @@ ninja -C builddir/ -j ${CPU_COUNT}
 
 ninja -C builddir/ install
 
-# library_path in the ICD JSON points to the absolute path during the build
-# process. Patch it to point to the correct lib path.
-# Users should add $CONDA_PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
-# to VK_DRIVER_FILES environment variable for the VK loader to pick up lavapipe.
-ICD_PATH=$(find "$PREFIX/share/vulkan/icd.d" -name 'lvp_icd.*.json' | head -n 1)
-jq '.ICD.library_path = "../../../lib/libvulkan_lvp.so"' $ICD_PATH > icd_temp.json
-mv icd_temp.json $ICD_PATH
-
 # meson test -C builddir/ \
 #   -t 4
 
