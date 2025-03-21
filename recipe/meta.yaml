@@ -9,7 +9,7 @@ source:
   sha256: adf904d083b308df95898600ffed435f4b5c600d95fb6ec6d4c45638627fdc97
 
 build:
-  skip: true  # [win]
+  skip: true  # [win or linux]
   number: 1
 
   track_features:
@@ -31,13 +31,14 @@ requirements:
     - llvm
     - llvmdev       # [build_platform != target_platform]
     - jq
+    - glslang
   host:
     - expat
     - zlib
     - zstd
     - libdrm                       # [linux]
     - elfutils                     # [linux]
-    - glslang
+    #- glslang
     - ncurses
     - llvm
     - llvmdev
