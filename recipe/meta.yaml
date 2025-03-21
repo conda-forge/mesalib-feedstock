@@ -30,12 +30,14 @@ requirements:
     - pkg-config
     - llvm
     - llvmdev       # [build_platform != target_platform]
+    - jq
   host:
     - expat
     - zlib
     - zstd
     - libdrm                       # [linux]
     - elfutils                     # [linux]
+    - glslang                      # [linux]
     - ncurses
     - llvm
     - llvmdev
@@ -56,14 +58,16 @@ test:
     # We assert that we didn't build screen rendering capabilities.
     # We want on-screen rendering capabilities to be hardware accelerated
     # but that will take more effort
-    - test ! -f $PREFIX/lib/dri/kms_swrast_dri${SHLIB_EXT}  # [linux]
-    - test ! -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}      # [linux]
-    - test ! -f $PREFIX/lib/libgbm${SHLIB_EXT}              # [linux]
-    - test ! -f $PREFIX/lib/libGLESv1_CM${SHLIB_EXT}        # [linux]
-    - test ! -f $PREFIX/lib/libGLESv2${SHLIB_EXT}           # [linux]
-    - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}              # [linux]
-    - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}               # [linux]
-    - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}           # [linux]
+    - test ! -f $PREFIX/lib/dri/kms_swrast_dri${SHLIB_EXT}    # [linux]
+    - test ! -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}        # [linux]
+    - test ! -f $PREFIX/lib/libgbm${SHLIB_EXT}                # [linux]
+    - test ! -f $PREFIX/lib/libGLESv1_CM${SHLIB_EXT}          # [linux]
+    - test ! -f $PREFIX/lib/libGLESv2${SHLIB_EXT}             # [linux]
+    - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}                # [linux]
+    - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}                 # [linux]
+    - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}               # [linux]
+    - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}           # [linux]
+    - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json  # [linux]
 
     - test ! -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}  # [osx]
     - test ! -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}     # [osx]
