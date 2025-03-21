@@ -69,7 +69,7 @@ test:
     - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}                # [linux]
     - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}            # [unix]
     - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json   # [x86_64]
-    - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch.json    # [aarch64]
+    - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json    # [aarch64]
     - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.ppc64le.json  # [ppc64le]
 
     - test ! -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}  # [osx]
