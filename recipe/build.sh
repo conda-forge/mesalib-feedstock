@@ -33,7 +33,7 @@ meson setup builddir/ \
   -Dshared-llvm=enabled \
   -Dlibdir=lib \
   -Dosmesa=true \
-  -Dvulkan-drivers=[] \
+  -Dvulkan-drivers=swrast \
   -Dopengl=true \
   -Dglx-direct=false \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }

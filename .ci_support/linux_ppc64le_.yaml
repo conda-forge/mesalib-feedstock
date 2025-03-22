@@ -24,8 +24,6 @@ expat:
 - '2'
 libxcb:
 - '1'
-ncurses:
-- '6'
 target_platform:
 - linux-ppc64le
 zip_keys:
