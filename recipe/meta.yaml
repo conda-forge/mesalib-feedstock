@@ -43,7 +43,7 @@ requirements:
     - xorg-libx11
     - xorg-xorgproto
     - xorg-libxrandr
-    - xorg-libxshmfence  # [linux]
+    - xorg-libxshmfence
 
 test:
   requires:
