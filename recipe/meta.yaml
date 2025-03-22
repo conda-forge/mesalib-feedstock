@@ -30,14 +30,12 @@ requirements:
     - pkg-config
     - llvm
     - llvmdev       # [build_platform != target_platform]
-    - glslang       # [build_platform != target_platform]
+    - glslang
   host:
     - expat
     - zlib
     - zstd
     - libdrm                       # [linux]
-    - elfutils                     # [linux]
-    - glslang
     - spirv-tools
     - llvm
     - llvmdev
@@ -45,7 +43,7 @@ requirements:
     - xorg-libx11
     - xorg-xorgproto
     - xorg-libxrandr
-    - xorg-libxshmfence
+    - xorg-libxshmfence  # [linux]
 
 test:
   requires:
