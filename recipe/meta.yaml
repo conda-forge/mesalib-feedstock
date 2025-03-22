@@ -43,12 +43,8 @@ requirements:
     - llvmdev
     - libxcb
     - xorg-libx11
-    - xorg-libxext
     - xorg-xorgproto
     - xorg-libxrandr
-    - xorg-libxfixes
-    - xorg-libxdamage
-    - xorg-libxxf86vm    # [linux]
     - xorg-libxshmfence
 
 test:
