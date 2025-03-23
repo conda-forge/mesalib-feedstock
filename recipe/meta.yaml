@@ -7,6 +7,9 @@ package:
 source:
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
   sha256: adf904d083b308df95898600ffed435f4b5c600d95fb6ec6d4c45638627fdc97
+  patches:
+    - patches/0001-Add-llvm-wrap.patch
+    - patches/0002-Add-meson-options-and-build-changes.patch
 
 build:
   number: 2
