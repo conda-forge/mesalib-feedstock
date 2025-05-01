@@ -25,6 +25,8 @@ requirements:
     - meson
     - pyyaml
     - mako
+    # packaging is used to check versions at build time
+    - packaging
     - flex
     - bison
     - pkg-config
