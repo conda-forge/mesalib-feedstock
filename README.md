@@ -203,6 +203,3 @@ Feedstock Maintainers
 * [@matthiasdiener](https://github.com/matthiasdiener/)
 * [@sankhesh](https://github.com/sankhesh/)
 
-
-<!-- dummy commit to enable rerendering -->
-
