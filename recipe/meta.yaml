@@ -73,7 +73,6 @@ test:
 
     # - pkg-config --exists glesv1_cm
     # - pkg-config --exists glesv2
-    - pkg-config --exists osmesa
     # - pkg-config --exists gl
     # - pkg-config --exists egl
     # - pkg-config --exists gbm       # [linux]
