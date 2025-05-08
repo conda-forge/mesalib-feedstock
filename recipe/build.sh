@@ -5,6 +5,12 @@ set -ex
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
+if [[ "${target_platform}" == osx-64 ]]; then
+    # https://conda-forge.org/docs/maintainer/knowledge_base/#newer-c-features-with-old-sdk
+    # Address: error: 'path' is unavailable: introduced in macOS 10.15
+    export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
+fi
+
 if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
   if [[ "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
     # Mostly taken from https://github.com/conda-forge/pocl-feedstock/blob/b88046a851a95ab3c676c0b7815da8224bd66a09/recipe/build.sh#L52
