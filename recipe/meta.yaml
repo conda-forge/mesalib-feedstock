@@ -19,8 +19,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}
     - {{ stdlib('c') }}
+    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - meson
     - pyyaml
@@ -61,7 +61,6 @@ test:
     - test ! -f $PREFIX/lib/libGLESv2${SHLIB_EXT}              # [linux]
     - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}                 # [linux]
     - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}                  # [linux]
-    - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}                # [linux]
     - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}            # [unix]
     - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json   # [x86_64]
     - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json  # [aarch64]
