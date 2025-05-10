@@ -1,4 +1,4 @@
-{% set version = "25.0.2" %}
+{% set version = "25.0.5" %}
 
 package:
   name: mesalib
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
-  sha256: adf904d083b308df95898600ffed435f4b5c600d95fb6ec6d4c45638627fdc97
+  sha256: c0d245dea0aa4b49f74b3d474b16542e4a8799791cd33d676c69f650ad4378d0
   patches:
     - patches/0001-Add-llvm-wrap.patch
     - patches/0002-Add-meson-options-and-build-changes.patch
 
 build:
-  number: 2
+  number: 1
 
   track_features:
     - mesalib
@@ -30,6 +30,8 @@ requirements:
     - flex          # [not win]
     - bison         # [not win]
     - winflexbison  # [win]
+    # packaging is used to check versions at build time
+    - packaging
     - pkg-config
     - llvm
     - llvmdev       # [build_platform != target_platform]
