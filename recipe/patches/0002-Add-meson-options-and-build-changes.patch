@@ -1,0 +1,39 @@
+From 5007be435cd10173ec797db000808f463f947fa9 Mon Sep 17 00:00:00 2001
+From: Jarrett Johnson <jarrett.johnson@schrodinger.com>
+Date: Sun, 23 Mar 2025 13:02:51 -0400
+Subject: [PATCH 2/2] Add meson options and build changes
+
+---
+ meson.build       | 6 +++---
+ meson_options.txt | 2 ++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 095aec5d9ea..8ae4873f337 100644
+--- a/meson.build
++++ b/meson.build
+@@ -600,13 +600,13 @@ if with_dri
+ endif
+ 
+ dep_dxheaders = null_dep
+-if with_gallium_d3d12 or with_microsoft_clc or with_microsoft_vk or with_gfxstream_vk and host_machine.system() == 'windows'
++if (with_platform_windows and with_any_vk) or with_gallium_d3d12 or with_microsoft_clc or with_microsoft_vk or with_gfxstream_vk and host_machine.system() == 'windows'
+   dep_dxheaders = dependency('directx-headers', required : false)
+   if not dep_dxheaders.found()
+     dep_dxheaders = dependency('DirectX-Headers',
+       version : '>= 1.614.1',
+       fallback : ['DirectX-Headers', 'dep_dxheaders'],
+-      required : with_gallium_d3d12 or with_microsoft_vk
++      required : with_gallium_d3d12 or with_microsoft_vk or (with_platform_windows and with_any_vk)
+     )
+   endif
+ endif
+@@ -1784,7 +1784,7 @@ with_llvm = false
+ if _llvm.allowed()
+   dep_llvm = dependency(
+     'llvm',
+-    method : host_machine.system() == 'windows' ? 'auto' : 'config-tool',
++    method : host_machine.system() == 'windows' ? 'cmake' : 'config-tool',
+     version : _llvm_version,
+     modules : llvm_modules,
+     optional_modules : llvm_optional_modules,
