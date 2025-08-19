@@ -1,3 +1,5 @@
+@REM microsoft-experimental added for required DirectX-headers
+
 meson setup builddir ^
   --prefix=%LIBRARY_PREFIX% ^
   --buildtype=release ^
@@ -13,11 +15,11 @@ meson setup builddir ^
   -Dglx=disabled ^
   -Dllvm=enabled ^
   -Dosmesa=true ^
-  -Dvulkan-drivers=swrast ^
+  -Dvulkan-drivers=swrast,microsoft-experimental ^
   -Dopengl=true ^
   -Dglx-direct=false
 
-@REM As of Mar 2025, LLVM doesn't not have support for shared libs on Windows
+@REM As of Aug 2025, LLVM doesn't not have support for shared libs on Windows
 @REM See https://github.com/conda-forge/llvmdev-feedstock/issues/237
 @REM -Dshared-llvm=enabled ^
 
