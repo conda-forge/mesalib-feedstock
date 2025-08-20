@@ -1,0 +1,23 @@
+From: Jarrett Johnson <jarrett.johnson@schrodinger.com>
+Date: Mon, 18 Aug 2025 23:23:25 -0400
+Subject: [PATCH 1/1] Add inteljitevents module
+
+# LLVM from conda-forge comes with inteljitevents. The LLVMConfig
+# header will define IntelJITEvents headers while building mesa
+# so this module should be included in the build.
+---
+ meson.build | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/meson.build b/meson.build
+index 095aec5d9ea..89a4482d866 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1730,6 +1730,6 @@ endif
+ 
+-llvm_modules = ['bitwriter', 'engine', 'mcdisassembler', 'mcjit', 'core', 'executionengine', 'scalaropts', 'transformutils', 'instcombine']
++llvm_modules = ['bitwriter', 'engine', 'mcdisassembler', 'mcjit', 'core', 'executionengine', 'scalaropts', 'transformutils', 'instcombine', 'inteljitevents']
+ llvm_optional_modules = ['coroutines']
+ if with_amd_vk or with_gallium_radeonsi or with_gallium_r600
+   llvm_modules += ['amdgpu', 'bitreader', 'ipo']
+   if with_gallium_r600

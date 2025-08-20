@@ -65,6 +65,13 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mesalib-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
+            </tr><tr>
+              <td>win_64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=3084&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mesalib-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -194,6 +201,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@JarrettSJohnson](https://github.com/JarrettSJohnson/)
 * [@danlipsa](https://github.com/danlipsa/)
 * [@dnadeau4](https://github.com/dnadeau4/)
 * [@doutriaux1](https://github.com/doutriaux1/)
