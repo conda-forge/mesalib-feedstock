@@ -1,8 +1,11 @@
 @echo on
 @REM microsoft-experimental added for required DirectX-headers
 
+echo MESON_ARGS are %MESON_ARGS%
+
 meson setup builddir ^
   %MESON_ARGS% ^
+  --buildtype=release ^
   --prefix=%LIBRARY_PREFIX% ^
   -Dplatforms=windows ^
   -Dgles1=disabled ^
