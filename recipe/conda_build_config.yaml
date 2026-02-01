@@ -3,3 +3,6 @@ cxx_compiler_version:  # [osx]
 
 c_compiler_version:    # [osx]
   - '20'               # [osx]
+
+c_stdlib_version:  # [osx]
+  - '11.0'         # [osx]
