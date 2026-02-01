@@ -1,4 +1,4 @@
-{% set version = "25.1.9" %}
+{% set version = "25.2.8" %}
 
 package:
   name: mesalib
@@ -6,12 +6,12 @@ package:
 
 source:
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
-  sha256: 412df33a1bb3c785ed698555a3972118a37c458e7accf6ae53f4bb87b3db454a
+  sha256: 097842f3e49d996868b38688db87b006f7d4541e93ce86d2f341d8b3e7be7c93
   patches:
     - patches/0001-Add-inteljitevents-module.patch  # [win]
 
 build:
-  number: 1
+  number: 0
 
   track_features:
     - mesalib
