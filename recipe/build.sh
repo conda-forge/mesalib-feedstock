@@ -2,8 +2,25 @@
 
 set -ex
 
+# Possible ctng-compiler-activation bug - MESON_SYSTEM is undefined, should be MESON_NAME
+# This sets system = 'linux' in the cross file where it's currently empty
+# Submitted Issue: https://github.com/conda-forge/ctng-compiler-activation-feedstock/issues/174
+if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == linux-* ]]; then
+  sed -i "s/^system = ''$/system = 'linux'/" $BUILD_PREFIX/meson_cross_file.txt
+  echo "=== Patched meson cross file ==="
+  cat $BUILD_PREFIX/meson_cross_file.txt
+fi
+
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+
+# macOS: Use native macos platform to avoid X11 header conflicts
+# The macOS sysroot has old X11 headers that conflict with newer xorg-libx11
+if [[ "${target_platform}" == osx-* ]]; then
+  MESA_PLATFORMS="macos"
+else
+  MESA_PLATFORMS="x11"
+fi
 
 if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
   if [[ "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
@@ -19,7 +36,7 @@ fi
 
 meson setup builddir/ \
   ${MESON_ARGS} \
-  -Dplatforms=x11 \
+  -Dplatforms=${MESA_PLATFORMS} \
   -Dgles1=disabled \
   -Dgles2=disabled \
   -Dgallium-va=disabled \
@@ -32,7 +49,6 @@ meson setup builddir/ \
   -Dllvm=enabled \
   -Dshared-llvm=enabled \
   -Dlibdir=lib \
-  -Dosmesa=true \
   -Dvulkan-drivers=swrast \
   -Dopengl=true \
   -Dglx-direct=false \

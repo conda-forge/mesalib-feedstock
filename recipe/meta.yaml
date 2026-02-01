@@ -1,4 +1,4 @@
-{% set version = "25.0.5" %}
+{% set version = "25.1.9" %}
 
 package:
   name: mesalib
@@ -6,12 +6,12 @@ package:
 
 source:
   url: https://archive.mesa3d.org/mesa-{{ version }}.tar.xz
-  sha256: c0d245dea0aa4b49f74b3d474b16542e4a8799791cd33d676c69f650ad4378d0
+  sha256: 412df33a1bb3c785ed698555a3972118a37c458e7accf6ae53f4bb87b3db454a
   patches:
     - patches/0001-Add-inteljitevents-module.patch  # [win]
 
 build:
-  number: 2
+  number: 0
 
   track_features:
     - mesalib
@@ -32,8 +32,9 @@ requirements:
     - bison         # [not win]
     - winflexbison  # [win]
     - pkg-config
-    - llvm
+    - llvm          # [build_platform != target_platform]
     - llvmdev       # [build_platform != target_platform]
+    - libdrm        # [build_platform != target_platform and linux]
     - glslang
   host:
     - expat                        # [unix]
@@ -43,11 +44,11 @@ requirements:
     - spirv-tools
     - llvm
     - llvmdev
-    - libxcb                       # [unix]
-    - xorg-libx11                  # [unix]
-    - xorg-xorgproto               # [unix]
-    - xorg-libxrandr               # [unix]
-    - xorg-libxshmfence            # [unix]
+    - libxcb                       # [linux]
+    - xorg-libx11                  # [linux]
+    - xorg-xorgproto               # [linux]
+    - xorg-libxrandr               # [linux]
+    - xorg-libxshmfence            # [linux]
 
 test:
   requires:
@@ -63,7 +64,6 @@ test:
     - test ! -f $PREFIX/lib/libGLESv2${SHLIB_EXT}              # [linux]
     - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}                 # [linux]
     - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}                  # [linux]
-    - test -f $PREFIX/lib/libOSMesa${SHLIB_EXT}                # [linux]
     - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}            # [unix]
     - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json   # [unix and x86_64]
     - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json  # [aarch64]
@@ -71,17 +71,14 @@ test:
 
     - test ! -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}  # [osx]
     - test ! -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}     # [osx]
-    - test -f $PREFIX/lib/libOSMesa.8${SHLIB_EXT}     # [osx]
     - test ! -f $PREFIX/lib/libGL.1${SHLIB_EXT}         # [osx]
 
     - if not exist %LIBRARY_PREFIX%\lib\vulkan_lvp.lib exit 1                      # [win]
-    - if not exist %LIBRARY_PREFIX%\lib\osmesa.lib exit 1                          # [win]
     - if not exist %LIBRARY_PREFIX%\bin\vulkan_lvp.dll exit 1                      # [win]
     - if not exist %LIBRARY_PREFIX%\share\vulkan\icd.d\lvp_icd.x86_64.json exit 1  # [win]
 
     # - pkg-config --exists glesv1_cm
     # - pkg-config --exists glesv2
-    - pkg-config --exists osmesa
     # - pkg-config --exists gl
     # - pkg-config --exists egl
     # - pkg-config --exists gbm       # [linux]
