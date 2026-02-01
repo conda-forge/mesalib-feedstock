@@ -18,7 +18,6 @@ meson setup builddir ^
   -Degl=disabled ^
   -Dglx=disabled ^
   -Dllvm=enabled ^
-  -Dosmesa=true ^
   -Dvulkan-drivers=swrast,microsoft-experimental ^
   -Dopengl=true ^
   -Dglx-direct=false

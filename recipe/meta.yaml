@@ -11,7 +11,7 @@ source:
     - patches/0001-Add-inteljitevents-module.patch  # [win]
 
 build:
-  number: 0
+  number: 1
 
   track_features:
     - mesalib
