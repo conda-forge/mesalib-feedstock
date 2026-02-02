@@ -85,7 +85,7 @@ meson setup builddir/ \
   -Dvulkan-drivers=${VULKAN_DRIVERS} \
   -Dopengl=true \
   -Dglx-direct=false \
-  -Dprecomp-compiler=system \
+  -Dmesa-clc=system \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }
 
 ninja -C builddir/ -j ${CPU_COUNT}
