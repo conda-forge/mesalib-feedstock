@@ -42,6 +42,8 @@ requirements:
       then: llvm-tools
     - if: build_platform != target_platform and osx
       then: libllvmspirv
+    - if: build_platform != target_platform and osx
+      then: spirv-tools
     - if: build_platform != target_platform
       then:
         - llvm
