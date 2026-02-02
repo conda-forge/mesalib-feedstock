@@ -51,6 +51,7 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
 
   meson setup builddir-native/ \
     --prefix="$SRC_DIR/native-install" \
+    -Dplatforms= \
     -Dvulkan-drivers= \
     -Dgallium-drivers= \
     -Dglx=disabled \
