@@ -58,7 +58,7 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
     -Degl=disabled \
     -Dllvm=enabled
 
-  ninja -C builddir-native/ src/compiler/spirv/vtn_bindgen2
+  ninja -C builddir-native/
 
   export PATH="$SRC_DIR/builddir-native/src/compiler/spirv:$PATH"
 
