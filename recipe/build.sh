@@ -54,12 +54,14 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
   CROSS_LDFLAGS="$LDFLAGS"
   CROSS_CFLAGS="$CFLAGS"
   CROSS_CXXFLAGS="$CXXFLAGS"
+  CROSS_LLVM_CONFIG="$LLVM_CONFIG"
 
   # Override paths to use BUILD_PREFIX (x86_64) libraries, not PREFIX (arm64)
   export PKG_CONFIG_PATH="$BUILD_PREFIX/lib/pkgconfig"
   export LDFLAGS="-L$BUILD_PREFIX/lib"
   export CFLAGS="-I$BUILD_PREFIX/include"
   export CXXFLAGS="-I$BUILD_PREFIX/include"
+  export LLVM_CONFIG="$BUILD_PREFIX/bin/llvm-config"
 
   meson setup builddir-native/ \
     --prefix="$SRC_DIR/native-install" \
@@ -79,6 +81,7 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
   export LDFLAGS="$CROSS_LDFLAGS"
   export CFLAGS="$CROSS_CFLAGS"
   export CXXFLAGS="$CROSS_CXXFLAGS"
+  export LLVM_CONFIG="$CROSS_LLVM_CONFIG"
 
   # Add paths for both vtn_bindgen2 and mesa_clc
   export PATH="$SRC_DIR/builddir-native/src/compiler/spirv:$SRC_DIR/builddir-native/src/compiler/clc:$PATH"
