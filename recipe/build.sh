@@ -49,6 +49,18 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
   export CXX=$CXX_FOR_BUILD
   export OBJC=$OBJC_FOR_BUILD
 
+  # Save cross-compilation environment
+  CROSS_PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
+  CROSS_LDFLAGS="$LDFLAGS"
+  CROSS_CFLAGS="$CFLAGS"
+  CROSS_CXXFLAGS="$CXXFLAGS"
+
+  # Override paths to use BUILD_PREFIX (x86_64) libraries, not PREFIX (arm64)
+  export PKG_CONFIG_PATH="$BUILD_PREFIX/lib/pkgconfig"
+  export LDFLAGS="-L$BUILD_PREFIX/lib"
+  export CFLAGS="-I$BUILD_PREFIX/include"
+  export CXXFLAGS="-I$BUILD_PREFIX/include"
+
   meson setup builddir-native/ \
     --prefix="$SRC_DIR/native-install" \
     -Dplatforms= \
@@ -61,6 +73,12 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
     -Dinstall-mesa-clc=true
 
   ninja -C builddir-native/
+
+  # Restore cross-compilation environment
+  export PKG_CONFIG_PATH="$CROSS_PKG_CONFIG_PATH"
+  export LDFLAGS="$CROSS_LDFLAGS"
+  export CFLAGS="$CROSS_CFLAGS"
+  export CXXFLAGS="$CROSS_CXXFLAGS"
 
   # Add paths for both vtn_bindgen2 and mesa_clc
   export PATH="$SRC_DIR/builddir-native/src/compiler/spirv:$SRC_DIR/builddir-native/src/compiler/clc:$PATH"
