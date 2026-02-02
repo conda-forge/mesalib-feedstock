@@ -86,6 +86,9 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
   # Add paths for both vtn_bindgen2 and mesa_clc
   export PATH="$SRC_DIR/builddir-native/src/compiler/spirv:$SRC_DIR/builddir-native/src/compiler/clc:$PATH"
 
+  # Use pre-built mesa-clc tools for cross-compilation
+  MESA_CLC_OPT="-Dmesa-clc=system"
+
   # Restore cross compilers
   export CC=$CROSS_CC
   export CXX=$CROSS_CXX
@@ -109,7 +112,7 @@ meson setup builddir/ \
   -Dvulkan-drivers=${VULKAN_DRIVERS} \
   -Dopengl=true \
   -Dglx-direct=false \
-  -Dmesa-clc=system \
+  ${MESA_CLC_OPT:-} \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }
 
 ninja -C builddir/ -j ${CPU_COUNT}

@@ -33,21 +33,15 @@ requirements:
       then: winflexbison
     - pkg-config
     - if: build_platform != target_platform and osx
-      then: clangdev
-    - if: build_platform != target_platform and osx
-      then: libclc
-    - if: build_platform != target_platform and osx
-      then: llvm-spirv
-    - if: build_platform != target_platform and osx
-      then: llvm-tools
-    - if: build_platform != target_platform and osx
-      then: libllvmspirv
-    - if: build_platform != target_platform and osx
-      then: spirv-tools
-    - if: build_platform != target_platform and osx
-      then: zlib
-    - if: build_platform != target_platform and osx
-      then: zstd
+      then:
+        - clangdev
+        - libclc
+        - llvm-spirv
+        - llvm-tools
+        - libllvmspirv
+        - spirv-tools
+        - zlib
+        - zstd
     - if: build_platform != target_platform
       then:
         - llvm
@@ -66,13 +60,11 @@ requirements:
     - llvm
     - llvmdev
     - if: osx
-      then: clangdev
-    - if: osx
-      then: libclc
-    - if: osx
-      then: llvm-spirv
-    - if: osx
-      then: libllvmspirv
+      then:
+        - clangdev
+        - libclc
+        - llvm-spirv
+        - libllvmspirv
     - if: linux
       then:
         - libxcb
@@ -115,9 +107,9 @@ tests:
           - test ! -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}
           - test ! -f $PREFIX/lib/libGL.1${SHLIB_EXT}
       - if: osx and x86_64
-        then: test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.x86_64.json
-      - if: osx and arm64
-        then: test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.aarch64.json
+        then:
+          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.x86_64.json
+          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.aarch64.json
       - if: win
         then:
           - if not exist %LIBRARY_PREFIX%\lib\vulkan_lvp.lib exit 1
