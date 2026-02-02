@@ -1,0 +1,123 @@
+schema_version: 1
+
+context:
+  version: "25.3.4"
+
+package:
+  name: mesalib
+  version: ${{ version }}
+
+source:
+  url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
+  sha256: 3a0fc6ec070b45ae25dc2ccb5e52fae1d89141f7c39c4a91fe4eaa80dfff9deb
+  patches:
+    - if: win
+      then:
+        - patches/0001-Add-inteljitevents-module.patch
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('cxx') }}
+    - meson
+    - pyyaml
+    - mako
+    - packaging
+    - if: unix
+      then: flex
+    - if: unix
+      then: bison
+    - if: win
+      then: winflexbison
+    - pkg-config
+    - if: build_platform != target_platform
+      then: llvm
+    - if: build_platform != target_platform
+      then: llvmdev
+    - if: build_platform != target_platform and linux
+      then: libdrm
+    - glslang
+  host:
+    - if: unix
+      then: expat
+    - zlib
+    - zstd
+    - if: linux
+      then: libdrm
+    - spirv-tools
+    - llvm
+    - llvmdev
+    - if: linux
+      then: libxcb
+    - if: linux
+      then: xorg-libx11
+    - if: linux
+      then: xorg-xorgproto
+    - if: linux
+      then: xorg-libxrandr
+    - if: linux
+      then: xorg-libxshmfence
+  run_exports:
+    - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
+
+tests:
+  - requirements:
+      run:
+        - pkg-config
+    script:
+      - if: linux
+        then:
+          - test ! -f $PREFIX/lib/dri/kms_swrast_dri${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/libgbm${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/libGLESv1_CM${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/libGLESv2${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}
+      - if: unix
+        then:
+          - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
+      - if: unix and x86_64
+        then:
+          - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
+      - if: aarch64
+        then:
+          - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
+      - if: ppc64le
+        then:
+          - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.ppc64le.json
+      - if: osx
+        then:
+          - test ! -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}
+          - test ! -f $PREFIX/lib/libGL.1${SHLIB_EXT}
+      - if: win
+        then:
+          - if not exist %LIBRARY_PREFIX%\lib\vulkan_lvp.lib exit 1
+          - if not exist %LIBRARY_PREFIX%\bin\vulkan_lvp.dll exit 1
+          - if not exist %LIBRARY_PREFIX%\share\vulkan\icd.d\lvp_icd.x86_64.json exit 1
+
+about:
+  homepage: https://www.mesa3d.org
+  license: MIT
+  license_family: MIT
+  license_file: docs/license.rst
+  summary: Mesa is an open-source implementation of the OpenGL specification - a system for rendering interactive 3D graphics.
+  repository: https://gitlab.freedesktop.org/mesa/mesa
+  documentation: https://docs.mesa3d.org/
+
+extra:
+  recipe-maintainers:
+    - dnadeau4
+    - doutriaux1
+    - sankhesh
+    - danlipsa
+    - hmaarrfk
+    - downiec
+    - jasonb5
+    - matthiasdiener
+    - JarrettSJohnson
