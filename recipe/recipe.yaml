@@ -108,10 +108,10 @@ tests:
           - test ! -f $PREFIX/lib/libGL.1${SHLIB_EXT}
       - if: osx and x86_64
         then:
-          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.x86_64.json
-      - if: osx and arm64
+          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.x86_64.json
+      - if: osx and aarch64
         then:
-          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.aarch64.json
+          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.aarch64.json
       - if: win
         then:
           - if not exist %LIBRARY_PREFIX%\lib\vulkan_lvp.lib exit 1
