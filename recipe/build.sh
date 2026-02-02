@@ -56,11 +56,14 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
     -Dgallium-drivers= \
     -Dglx=disabled \
     -Degl=disabled \
-    -Dllvm=enabled
+    -Dllvm=enabled \
+    -Dmesa-clc=enabled \
+    -Dinstall-mesa-clc=true
 
   ninja -C builddir-native/
 
-  export PATH="$SRC_DIR/builddir-native/src/compiler/spirv:$PATH"
+  # Add paths for both vtn_bindgen2 and mesa_clc
+  export PATH="$SRC_DIR/builddir-native/src/compiler/spirv:$SRC_DIR/builddir-native/src/compiler/clc:$PATH"
 
   # Restore cross compilers
   export CC=$CROSS_CC
