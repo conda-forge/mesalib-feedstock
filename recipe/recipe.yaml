@@ -109,6 +109,8 @@ tests:
       - if: osx and x86_64
         then:
           - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.x86_64.json
+      - if: osx and arm64
+        then:
           - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_icd.aarch64.json
       - if: win
         then:
