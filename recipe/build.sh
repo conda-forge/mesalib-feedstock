@@ -14,10 +14,13 @@ fi
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
+VULKAN_DRIVERS="swrast"
+
 # macOS: Use native macos platform to avoid X11 header conflicts
 # The macOS sysroot has old X11 headers that conflict with newer xorg-libx11
 if [[ "${target_platform}" == osx-* ]]; then
   MESA_PLATFORMS="macos"
+  VULKAN_DRIVERS="${VULKAN_DRIVERS},kosmickrisp"
 else
   MESA_PLATFORMS="x11"
 fi
@@ -34,6 +37,36 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
   fi
 fi
 
+# For macOS cross-compilation, build native vtn_bindgen2 first
+if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]]; then
+  # Save cross compilers
+  CROSS_CC=$CC
+  CROSS_CXX=$CXX
+  CROSS_OBJC=$OBJC
+
+  # Use native compilers for tool build
+  export CC=$CC_FOR_BUILD
+  export CXX=$CXX_FOR_BUILD
+  export OBJC=$OBJC_FOR_BUILD
+
+  meson setup builddir-native/ \
+    --prefix="$SRC_DIR/native-install" \
+    -Dvulkan-drivers= \
+    -Dgallium-drivers= \
+    -Dglx=disabled \
+    -Degl=disabled \
+    -Dllvm=enabled
+
+  ninja -C builddir-native/ src/compiler/spirv/vtn_bindgen2
+
+  export PATH="$SRC_DIR/builddir-native/src/compiler/spirv:$PATH"
+
+  # Restore cross compilers
+  export CC=$CROSS_CC
+  export CXX=$CROSS_CXX
+  export OBJC=$CROSS_OBJC
+fi
+
 meson setup builddir/ \
   ${MESON_ARGS} \
   -Dplatforms=${MESA_PLATFORMS} \
@@ -48,9 +81,10 @@ meson setup builddir/ \
   -Dllvm=enabled \
   -Dshared-llvm=enabled \
   -Dlibdir=lib \
-  -Dvulkan-drivers=swrast \
+  -Dvulkan-drivers=${VULKAN_DRIVERS} \
   -Dopengl=true \
   -Dglx-direct=false \
+  -Dprecomp-compiler=system \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }
 
 ninja -C builddir/ -j ${CPU_COUNT}
@@ -59,4 +93,3 @@ ninja -C builddir/ install
 
 # meson test -C builddir/ \
 #   -t 4
-
