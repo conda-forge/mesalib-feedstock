@@ -1,11 +1,11 @@
 # Override compiler versions for macOS
 cxx_compiler_version:
   - if: osx
-    then: '20'
+    then: '21'
 
 c_compiler_version:
   - if: osx
-    then: '20'
+    then: '21'
 
 c_stdlib:
   - if: osx
@@ -13,4 +13,4 @@ c_stdlib:
 
 c_stdlib_version:
   - if: osx
-    then: '12'
+    then: '15'
