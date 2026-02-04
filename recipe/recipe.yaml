@@ -16,7 +16,7 @@ source:
         - patches/0001-Add-inteljitevents-module.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -28,18 +28,18 @@ requirements:
     - mako
     - packaging
     - if: unix
-      then: flex
-    - if: unix
-      then: bison
+      then:
+        - flex
+        - bison
     - if: win
       then: winflexbison
     - pkg-config
     - if: build_platform != target_platform
-      then: llvm
-    - if: build_platform != target_platform
-      then: llvmdev
-    - if: build_platform != target_platform and linux
-      then: libdrm
+      then:
+        - llvm
+        - llvmdev
+        - if: linux
+          then: libdrm
     - glslang
   host:
     - if: unix
@@ -52,15 +52,12 @@ requirements:
     - llvm
     - llvmdev
     - if: linux
-      then: libxcb
-    - if: linux
-      then: xorg-libx11
-    - if: linux
-      then: xorg-xorgproto
-    - if: linux
-      then: xorg-libxrandr
-    - if: linux
-      then: xorg-libxshmfence
+      then:
+        - libxcb
+        - xorg-libx11
+        - xorg-xorgproto
+        - xorg-libxrandr
+        - xorg-libxshmfence
   run_exports:
     - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
 
@@ -81,9 +78,9 @@ tests:
       - if: unix
         then:
           - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
-      - if: unix and x86_64
-        then:
-          - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
+          - if: x86_64
+            then:
+              - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
       - if: aarch64
         then:
           - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
