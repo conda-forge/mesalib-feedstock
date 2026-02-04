@@ -23,7 +23,7 @@ expat:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 spirv_tools:
-- '2025'
+- '2026'
 target_platform:
 - osx-64
 zip_keys:

@@ -21,7 +21,7 @@ expat:
 libxcb:
 - '1'
 spirv_tools:
-- '2025'
+- '2026'
 target_platform:
 - linux-64
 zip_keys:
