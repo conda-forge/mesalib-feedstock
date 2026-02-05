@@ -12,7 +12,6 @@ meson setup builddir ^
   -Dgles2=disabled ^
   -Dgallium-va=disabled ^
   -Dgbm=disabled ^
-  -Dshared-glapi=enabled ^
   -Dgallium-drivers=softpipe,llvmpipe ^
   -Degl=disabled ^
   -Dglx=disabled ^
