@@ -36,6 +36,7 @@ requirements:
       then:
         - clangdev
         - libclc
+        - libcxx
         - llvm-spirv
         - llvm-tools
         - libllvmspirv

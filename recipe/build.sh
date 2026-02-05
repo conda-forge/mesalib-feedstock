@@ -58,9 +58,9 @@ if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == osx-* ]];
 
   # Override paths to use BUILD_PREFIX (x86_64) libraries, not PREFIX (arm64)
   export PKG_CONFIG_PATH="$BUILD_PREFIX/lib/pkgconfig"
-  export LDFLAGS="-L$BUILD_PREFIX/lib"
+  export LDFLAGS="-L$BUILD_PREFIX/lib -Wl,-rpath,$BUILD_PREFIX/lib"
   export CFLAGS="-I$BUILD_PREFIX/include"
-  export CXXFLAGS="-I$BUILD_PREFIX/include"
+  export CXXFLAGS="-I$BUILD_PREFIX/include -stdlib=libc++"
   export LLVM_CONFIG="$BUILD_PREFIX/bin/llvm-config"
 
   meson setup builddir-native/ \
