@@ -1,15 +1,15 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '12'
+- '15'
 MACOSX_SDK_VERSION:
-- '12'
+- '15'
 c_compiler:
 - clang
 c_compiler_version:
-- '20'
+- '21'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '12'
+- '15'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -17,7 +17,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '20'
+- '21'
 expat:
 - '2'
 macos_machine:

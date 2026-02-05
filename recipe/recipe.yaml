@@ -1,15 +1,13 @@
-schema_version: 1
-
 context:
-  version: "25.3.4"
+  version: "26.0.0rc3"
 
 package:
   name: mesalib
   version: ${{ version }}
 
 source:
-  url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
-  sha256: 3a0fc6ec070b45ae25dc2ccb5e52fae1d89141f7c39c4a91fe4eaa80dfff9deb
+  url: https://archive.mesa3d.org/mesa-26.0.0-rc3.tar.xz
+  sha256: c0010fb19bb525ffcedab0d00f4d0430471e6342b86041ff3358142a96ae50d6
   patches:
     - if: win
       then:
@@ -34,6 +32,17 @@ requirements:
     - if: win
       then: winflexbison
     - pkg-config
+    - if: build_platform != target_platform and osx
+      then:
+        - clangdev
+        - libclc
+        - libcxx
+        - llvm-spirv
+        - llvm-tools
+        - libllvmspirv
+        - spirv-tools
+        - zlib
+        - zstd
     - if: build_platform != target_platform
       then:
         - llvm
@@ -51,6 +60,12 @@ requirements:
     - spirv-tools
     - llvm
     - llvmdev
+    - if: osx
+      then:
+        - clangdev
+        - libclc
+        - llvm-spirv
+        - libllvmspirv
     - if: linux
       then:
         - libxcb
@@ -92,6 +107,12 @@ tests:
           - test ! -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}
           - test ! -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}
           - test ! -f $PREFIX/lib/libGL.1${SHLIB_EXT}
+      - if: osx and x86_64
+        then:
+          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.x86_64.json
+      - if: osx and aarch64
+        then:
+          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.aarch64.json
       - if: win
         then:
           - if not exist %LIBRARY_PREFIX%\lib\vulkan_lvp.lib exit 1
