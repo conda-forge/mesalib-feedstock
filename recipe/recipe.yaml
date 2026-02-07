@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "25.3.4"
+  version: "25.3.5"
 
 package:
   name: mesalib
@@ -9,14 +9,14 @@ package:
 
 source:
   url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
-  sha256: 3a0fc6ec070b45ae25dc2ccb5e52fae1d89141f7c39c4a91fe4eaa80dfff9deb
+  sha256: be472413475082df945e0f9be34f5af008baa03eb357e067ce5a611a2d44c44b
   patches:
     - if: win
       then:
         - patches/0001-Add-inteljitevents-module.patch
 
 build:
-  number: 2
+  number: 0
 
 requirements:
   build:
