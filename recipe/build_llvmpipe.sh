@@ -14,22 +14,14 @@ fi
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
-# macOS: Use native macos platform to avoid X11 header conflicts
-# The macOS sysroot has old X11 headers that conflict with newer xorg-libx11
-if [[ "${target_platform}" == osx-* ]]; then
-  MESA_PLATFORMS="macos"
-else
-  MESA_PLATFORMS="x11"
-fi
+MESA_PLATFORMS="x11"
 
 if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
   if [[ "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
-    # Mostly taken from https://github.com/conda-forge/pocl-feedstock/blob/b88046a851a95ab3c676c0b7815da8224bd66a09/recipe/build.sh#L52
     rm $PREFIX/bin/llvm-config
     cp $BUILD_PREFIX/bin/llvm-config $PREFIX/bin/llvm-config
     export LLVM_CONFIG=${PREFIX}/bin/llvm-config
   else
-    # https://github.com/mesonbuild/meson/issues/4254
     export LLVM_CONFIG=${BUILD_PREFIX}/bin/llvm-config
   fi
 fi
@@ -42,13 +34,14 @@ meson setup builddir/ \
   -Dgallium-va=disabled \
   -Dgbm=disabled \
   -Dshared-glapi=enabled \
-  -Dgallium-drivers=softpipe,llvmpipe \
-  -Degl=disabled \
+  -Dgallium-drivers=llvmpipe \
+  -Degl=enabled \
+  -Dglvnd=enabled \
   -Dglx=disabled \
   -Dllvm=enabled \
   -Dshared-llvm=enabled \
   -Dlibdir=lib \
-  -Dvulkan-drivers=swrast \
+  -Dvulkan-drivers= \
   -Dopengl=true \
   -Dglx-direct=false \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }
@@ -56,7 +49,3 @@ meson setup builddir/ \
 ninja -C builddir/ -j ${CPU_COUNT}
 
 ninja -C builddir/ install
-
-# meson test -C builddir/ \
-#   -t 4
-
