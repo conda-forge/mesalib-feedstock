@@ -1,5 +1,4 @@
 @echo on
-@REM microsoft-experimental added for required DirectX-headers
 
 echo MESON_ARGS are %MESON_ARGS%
 
@@ -12,11 +11,11 @@ meson setup builddir ^
   -Dgles2=disabled ^
   -Dgallium-va=disabled ^
   -Dgbm=disabled ^
-  -Dgallium-drivers=softpipe,llvmpipe ^
+  -Dgallium-drivers=llvmpipe ^
   -Degl=disabled ^
   -Dglx=disabled ^
   -Dllvm=enabled ^
-  -Dvulkan-drivers=swrast,microsoft-experimental ^
+  -Dvulkan-drivers= ^
   -Dopengl=true ^
   -Dglx-direct=false
 if %ERRORLEVEL% neq 0 exit 1
