@@ -1,15 +1,15 @@
 schema_version: 1
 
 context:
-  version: "25.3.5"
+  version: "26.0.0"
 
-package:
+recipe:
   name: mesalib
   version: ${{ version }}
 
 source:
   url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
-  sha256: be472413475082df945e0f9be34f5af008baa03eb357e067ce5a611a2d44c44b
+  sha256: 2a44e98e64d5c36cec64633de2d0ec7eff64703ee25b35364ba8fcaa84f33f72
   patches:
     - if: win
       then:
@@ -18,85 +18,203 @@ source:
 build:
   number: 0
 
-requirements:
-  build:
-    - ${{ compiler('c') }}
-    - ${{ stdlib('c') }}
-    - ${{ compiler('cxx') }}
-    - meson
-    - pyyaml
-    - mako
-    - packaging
-    - if: unix
-      then:
-        - flex
-        - bison
-    - if: win
-      then: winflexbison
-    - pkg-config
-    - if: build_platform != target_platform
-      then:
+outputs:
+  - package:
+      name: mesa-lavapipe
+      version: ${{ version }}
+    build:
+      script: build_lavapipe
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ${{ compiler('cxx') }}
+        - meson
+        - pyyaml
+        - mako
+        - packaging
+        - if: unix
+          then:
+            - flex
+            - bison
+        - if: win
+          then: winflexbison
+        - pkg-config
+        - if: build_platform != target_platform and osx
+          then:
+            - clangdev
+            - libclc
+            - libcxx
+            - llvm-spirv
+            - llvm-tools
+            - libllvmspirv
+            - spirv-tools
+            - zlib
+            - zstd
+        - if: build_platform != target_platform
+          then:
+            - llvm
+            - llvmdev
+            - if: linux
+              then: libdrm
+        - glslang
+      host:
+        - if: unix
+          then: expat
+        - zlib
+        - zstd
+        - if: linux
+          then: libdrm
+        - spirv-tools
         - llvm
         - llvmdev
         - if: linux
-          then: libdrm
-    - glslang
-  host:
-    - if: unix
-      then: expat
-    - zlib
-    - zstd
-    - if: linux
-      then: libdrm
-    - spirv-tools
-    - llvm
-    - llvmdev
-    - if: linux
-      then:
-        - libxcb
-        - xorg-libx11
-        - xorg-xorgproto
-        - xorg-libxrandr
-        - xorg-libxshmfence
-  run_exports:
-    - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
-
-tests:
-  - requirements:
-      run:
-        - pkg-config
-    script:
-      - if: linux
-        then:
-          - test ! -f $PREFIX/lib/dri/kms_swrast_dri${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/libgbm${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/libGLESv1_CM${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/libGLESv2${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/libEGL${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/libGL${SHLIB_EXT}
-      - if: unix
-        then:
-          - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
-          - if: x86_64
+          then:
+            - libxcb
+            - xorg-libx11
+            - xorg-xorgproto
+            - xorg-libxrandr
+            - xorg-libxshmfence
+      run_exports:
+        - ${{ pin_subpackage('mesa-lavapipe', upper_bound='x.x') }}
+    tests:
+      - requirements:
+          run:
+            - pkg-config
+        script:
+          - if: unix
             then:
-              - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
-      - if: aarch64
-        then:
-          - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
-      - if: ppc64le
-        then:
-          - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.ppc64le.json
-      - if: osx
-        then:
-          - test ! -f $PREFIX/lib/libGLESv1_CM.1${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/libGLESv2.2${SHLIB_EXT}
-          - test ! -f $PREFIX/lib/libGL.1${SHLIB_EXT}
-      - if: win
-        then:
-          - if not exist %LIBRARY_PREFIX%\lib\vulkan_lvp.lib exit 1
-          - if not exist %LIBRARY_PREFIX%\bin\vulkan_lvp.dll exit 1
-          - if not exist %LIBRARY_PREFIX%\share\vulkan\icd.d\lvp_icd.x86_64.json exit 1
+              - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
+              - if: x86_64
+                then:
+                  - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
+          - if: aarch64
+            then:
+              - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
+          - if: ppc64le
+            then:
+              - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.ppc64le.json
+          - if: win
+            then:
+              - if not exist %LIBRARY_PREFIX%\lib\vulkan_lvp.lib exit 1
+              - if not exist %LIBRARY_PREFIX%\bin\vulkan_lvp.dll exit 1
+              - if not exist %LIBRARY_PREFIX%\share\vulkan\icd.d\lvp_icd.x86_64.json exit 1
+
+  - package:
+      name: mesa-kosmickrisp
+      version: ${{ version }}
+    build:
+      skip:
+        - not (osx and arm64)
+      script: build_kosmickrisp
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ${{ compiler('cxx') }}
+        - meson
+        - pyyaml
+        - mako
+        - packaging
+        - flex
+        - bison
+        - pkg-config
+        - if: build_platform != target_platform
+          then:
+            - clangdev
+            - libclc
+            - libcxx
+            - llvm-spirv
+            - llvm-tools
+            - libllvmspirv
+            - spirv-tools
+            - zlib
+            - zstd
+            - llvm
+            - llvmdev
+        - glslang
+      host:
+        - expat
+        - zlib
+        - zstd
+        - spirv-tools
+        - llvm
+        - llvmdev
+        - clangdev
+        - libclc
+        - llvm-spirv
+        - libllvmspirv
+      run_exports:
+        - ${{ pin_subpackage('mesa-kosmickrisp', upper_bound='x.x') }}
+    tests:
+      - script:
+          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.aarch64.json
+
+  - package:
+      name: mesa-llvmpipe
+      version: ${{ version }}
+    build:
+      skip:
+        - osx
+      script: build_llvmpipe
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ${{ compiler('cxx') }}
+        - meson
+        - pyyaml
+        - mako
+        - packaging
+        - if: unix
+          then:
+            - flex
+            - bison
+        - if: win
+          then: winflexbison
+        - pkg-config
+        - if: build_platform != target_platform
+          then:
+            - llvm
+            - llvmdev
+            - if: linux
+              then: libdrm
+        - glslang
+      host:
+        - if: unix
+          then: expat
+        - zlib
+        - zstd
+        - if: linux
+          then: libdrm
+        - llvm
+        - llvmdev
+        - if: linux
+          then:
+            - libxcb
+            - xorg-libx11
+            - xorg-xorgproto
+            - xorg-libxrandr
+            - xorg-libxshmfence
+            - libglvnd-devel
+            - libegl-devel
+      run_exports:
+        - ${{ pin_subpackage('mesa-llvmpipe', upper_bound='x.x') }}
+
+  - package:
+      name: mesalib
+      version: ${{ version }}
+    requirements:
+      run:
+        - ${{ pin_subpackage('mesa-lavapipe', exact=True) }}
+        - if: not osx
+          then:
+            - ${{ pin_subpackage('mesa-llvmpipe', exact=True) }}
+        - if: osx and arm64
+          then:
+            - ${{ pin_subpackage('mesa-kosmickrisp', exact=True) }}
+      run_exports:
+        - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
 
 about:
   homepage: https://www.mesa3d.org
