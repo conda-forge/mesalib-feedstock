@@ -1,13 +1,15 @@
+schema_version: 1
+
 context:
-  version: "26.0.0rc3"
+  version: "26.0.0"
 
 package:
   name: mesalib
   version: ${{ version }}
 
 source:
-  url: https://archive.mesa3d.org/mesa-26.0.0-rc3.tar.xz
-  sha256: c0010fb19bb525ffcedab0d00f4d0430471e6342b86041ff3358142a96ae50d6
+  url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
+  sha256: 2a44e98e64d5c36cec64633de2d0ec7eff64703ee25b35364ba8fcaa84f33f72
   patches:
     - if: win
       then:
