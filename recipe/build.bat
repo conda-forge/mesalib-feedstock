@@ -3,6 +3,10 @@
 
 echo MESON_ARGS are %MESON_ARGS%
 
+@REM hmaarrfk - 2026/03
+@REM I'm not sure why something is looking for this lib file
+copy %LIBRARY_PREFIX%\lib\zstd.lib %LIBRARY_PREFIX%\lib\zstd.dll.lib
+
 meson setup builddir ^
   %MESON_ARGS% ^
   --buildtype=release ^
@@ -31,3 +35,8 @@ if %ERRORLEVEL% neq 0 exit 1
 
 ninja -C builddir install
 if %ERRORLEVEL% neq 0 exit 1
+
+@REM hmaarrfk - 2026/03
+@REM I'm not sure why something is looking for this lib file
+@REM Removed so it doesn't get included as part of the final package
+del %LIBRARY_PREFIX%\lib\zstd.dll.lib
