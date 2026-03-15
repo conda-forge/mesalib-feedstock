@@ -58,6 +58,9 @@ requirements:
         - xorg-xorgproto
         - xorg-libxrandr
         - xorg-libxshmfence
+    - if: win
+      then:
+        - libxml2-devel
   run_exports:
     - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
 
