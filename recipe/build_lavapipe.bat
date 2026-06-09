@@ -3,21 +3,17 @@
 
 echo MESON_ARGS are %MESON_ARGS%
 
-@REM hmaarrfk - 2026/03
-@REM I'm not sure why something is looking for this lib file
-copy %LIBRARY_PREFIX%\lib\zstd.lib %LIBRARY_PREFIX%\lib\zstd.dll.lib
-
+@REM MESON_ARGS (from the meson conda package activation) already supplies
+@REM -Dbuildtype=release and --prefix; passing them again makes meson error
+@REM with "Got argument buildtype as both -Dbuildtype and --buildtype".
 meson setup builddir ^
   %MESON_ARGS% ^
-  --buildtype=release ^
-  --prefix=%LIBRARY_PREFIX% ^
   -Dplatforms=windows ^
   -Dgles1=disabled ^
   -Dgles2=disabled ^
   -Dgallium-va=disabled ^
   -Dgbm=disabled ^
-  -Dshared-glapi=enabled ^
-  -Dgallium-drivers=softpipe,llvmpipe ^
+  -Dgallium-drivers= ^
   -Degl=disabled ^
   -Dglx=disabled ^
   -Dllvm=enabled ^
@@ -35,8 +31,3 @@ if %ERRORLEVEL% neq 0 exit 1
 
 ninja -C builddir install
 if %ERRORLEVEL% neq 0 exit 1
-
-@REM hmaarrfk - 2026/03
-@REM I'm not sure why something is looking for this lib file
-@REM Removed so it doesn't get included as part of the final package
-del %LIBRARY_PREFIX%\lib\zstd.dll.lib
