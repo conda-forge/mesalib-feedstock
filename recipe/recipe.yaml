@@ -173,11 +173,14 @@ outputs:
           then:
             - libxcb
             - xorg-libx11
+            - xorg-libxext
+            - xorg-libxxf86vm
             - xorg-xorgproto
             - xorg-libxrandr
             - xorg-libxshmfence
             - libglvnd-devel
             - libegl-devel
+            - libglx-devel
         - if: win
           then:
             - libxml2-devel
@@ -187,6 +190,9 @@ outputs:
       - script:
           - if: linux
             then:
+              - test -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}
+              - test -f $PREFIX/lib/libgbm.so.1
+              - test -f $PREFIX/lib/libGLX_mesa.so.0
               - test -f $PREFIX/lib/libEGL_mesa${SHLIB_EXT}
               - test -f $PREFIX/lib/libgallium-*${SHLIB_EXT}
           - if: win

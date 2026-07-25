@@ -32,18 +32,18 @@ meson setup builddir/ \
   -Dgles1=disabled \
   -Dgles2=disabled \
   -Dgallium-va=disabled \
-  -Dgbm=disabled \
+  -Dgbm=enabled \
   -Dshared-glapi=enabled \
   -Dgallium-drivers=llvmpipe \
   -Degl=enabled \
   -Dglvnd=enabled \
-  -Dglx=disabled \
+  -Dglx=dri \
   -Dllvm=enabled \
   -Dshared-llvm=enabled \
   -Dlibdir=lib \
   -Dvulkan-drivers= \
   -Dopengl=true \
-  -Dglx-direct=false \
+  -Dglx-direct=true \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }
 
 ninja -C builddir/ -j ${CPU_COUNT}
