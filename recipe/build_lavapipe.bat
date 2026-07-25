@@ -9,8 +9,6 @@ copy %LIBRARY_PREFIX%\lib\zstd.lib %LIBRARY_PREFIX%\lib\zstd.dll.lib
 
 meson setup builddir ^
   %MESON_ARGS% ^
-  --buildtype=release ^
-  --prefix=%LIBRARY_PREFIX% ^
   -Dplatforms=windows ^
   -Dgles1=disabled ^
   -Dgles2=disabled ^
