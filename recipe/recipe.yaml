@@ -14,6 +14,7 @@ source:
     - if: win
       then:
         - patches/0001-Add-inteljitevents-module.patch
+        - patches/0002-nir-mark-assert-only-variable.patch
 
 build:
   number: 0

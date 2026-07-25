@@ -1,0 +1,28 @@
+From 23f8e75f8c989275d8794c2e41dd3b3a9349f4c1 Mon Sep 17 00:00:00 2001
+From: Jesse Natalie <jenatali@microsoft.com>
+Date: Fri, 8 May 2026 12:37:11 -0700
+Subject: [PATCH] nir_lower_non_uniform_access: Add ASSERTED for assert-only
+ var
+
+Reviewed-by: Sil Vilerino <sivileri@microsoft.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41445>
+---
+ src/compiler/nir/nir_lower_non_uniform_access.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/compiler/nir/nir_lower_non_uniform_access.c b/src/compiler/nir/nir_lower_non_uniform_access.c
+index 7cba8d97e271..71036d5501c4 100644
+--- a/src/compiler/nir/nir_lower_non_uniform_access.c
++++ b/src/compiler/nir/nir_lower_non_uniform_access.c
+@@ -72,7 +72,7 @@ nu_handle_init(struct nu_handle *h, nir_src *src)
+       if (deref->deref_type == nir_deref_type_var)
+          return false;
+ 
+-      nir_deref_instr *parent = nir_deref_instr_parent(deref);
++      ASSERTED nir_deref_instr *parent = nir_deref_instr_parent(deref);
+       assert(parent->deref_type == nir_deref_type_var);
+ 
+       assert(deref->deref_type == nir_deref_type_array);
+-- 
+GitLab
+
