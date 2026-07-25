@@ -40,18 +40,7 @@ outputs:
         - if: win
           then: winflexbison
         - pkg-config
-        - if: build_platform != target_platform and osx
-          then:
-            - clangdev
-            - libclc
-            - libcxx
-            - llvm-spirv
-            - llvm-tools
-            - libllvmspirv
-            - spirv-tools
-            - zlib
-            - zstd
-        - if: build_platform != target_platform
+        - if: build_platform != host_platform
           then:
             - llvm
             - llvmdev
@@ -122,19 +111,6 @@ outputs:
         - flex
         - bison
         - pkg-config
-        - if: build_platform != target_platform
-          then:
-            - clangdev
-            - libclc
-            - libcxx
-            - llvm-spirv
-            - llvm-tools
-            - libllvmspirv
-            - spirv-tools
-            - zlib
-            - zstd
-            - llvm
-            - llvmdev
         - glslang
       host:
         - expat
@@ -176,7 +152,7 @@ outputs:
         - if: win
           then: winflexbison
         - pkg-config
-        - if: build_platform != target_platform
+        - if: build_platform != host_platform
           then:
             - llvm
             - llvmdev
