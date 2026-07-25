@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jarrett Johnson <jarrettsjohnson@schrodinger.com>
+Date: Sat, 25 Jul 2026 15:30:00 -0700
+Subject: [PATCH] nir_builder: mark assert-only variable as asserted
+
+MSVC reports C4189 as an error in Mesa's release builds. Mark the variable
+used only by assert() so it remains intentionally referenced with NDEBUG.
+---
+ src/compiler/nir/nir_builder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/compiler/nir/nir_builder.c b/src/compiler/nir/nir_builder.c
+index 4f7a408..8c83d8e 100644
+--- a/src/compiler/nir/nir_builder.c
++++ b/src/compiler/nir/nir_builder.c
+@@ -678,7 +678,7 @@ nir_build_type_conversion(nir_builder *b, nir_def *src,
+     */
+    if (dst_base == nir_type_bool && src_base != nir_type_bool) {
+       nir_op opcode;
+-      const unsigned dst_bit_size = nir_alu_type_get_type_size(dest_type);
++      ASSERTED const unsigned dst_bit_size = nir_alu_type_get_type_size(dest_type);
+ 
+       /* For conversions to backend-specific bit-sizes,
+        * please use the appropriate instructions directly.
+-- 
+2.50.1

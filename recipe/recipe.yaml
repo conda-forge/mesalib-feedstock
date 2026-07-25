@@ -1,20 +1,21 @@
 schema_version: 1
 
 context:
-  version: "26.1.5"
+  version: "26.2.0rc2"
+  source_version: "26.2.0-rc2"
 
 recipe:
   name: mesalib
   version: ${{ version }}
 
 source:
-  url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
-  sha256: 79e421c7ce18cd9e790b8375920325779f10798630bf30e0b22f1a21c8617122
+  url: https://archive.mesa3d.org/mesa-${{ source_version }}.tar.xz
+  sha256: 9eb5c40d60efa77e2fcf5694b829ddd63a7410036625c33bf69488df50588295
   patches:
     - if: win
       then:
         - patches/0001-Add-inteljitevents-module.patch
-        - patches/0002-nir-mark-assert-only-variable.patch
+        - patches/0002-nir-builder-mark-assert-only-variable.patch
 
 build:
   number: 0

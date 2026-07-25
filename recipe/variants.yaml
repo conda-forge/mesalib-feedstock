@@ -19,6 +19,6 @@ c_stdlib_version:
 
 MACOSX_SDK_VERSION:
   - if: osx and arm64
-    then: '15'
+    then: '26'
   - if: osx and x86_64
     then: '12'
