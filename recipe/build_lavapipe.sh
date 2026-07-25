@@ -2,15 +2,6 @@
 
 set -ex
 
-# Possible ctng-compiler-activation bug - MESON_SYSTEM is undefined, should be MESON_NAME
-# This sets system = 'linux' in the cross file where it's currently empty
-# Submitted Issue: https://github.com/conda-forge/ctng-compiler-activation-feedstock/issues/174
-if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" && "${target_platform}" == linux-* ]]; then
-  sed -i "s/^system = ''$/system = 'linux'/" $BUILD_PREFIX/meson_cross_file.txt
-  echo "=== Patched meson cross file ==="
-  cat $BUILD_PREFIX/meson_cross_file.txt
-fi
-
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
