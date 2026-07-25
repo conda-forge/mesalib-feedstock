@@ -9,15 +9,13 @@ copy %LIBRARY_PREFIX%\lib\zstd.lib %LIBRARY_PREFIX%\lib\zstd.dll.lib
 
 meson setup builddir ^
   %MESON_ARGS% ^
-  --buildtype=release ^
-  --prefix=%LIBRARY_PREFIX% ^
   -Dplatforms=windows ^
   -Dgles1=disabled ^
   -Dgles2=disabled ^
   -Dgallium-va=disabled ^
   -Dgbm=disabled ^
   -Dshared-glapi=enabled ^
-  -Dgallium-drivers=softpipe,llvmpipe ^
+  -Dgallium-drivers= ^
   -Degl=disabled ^
   -Dglx=disabled ^
   -Dllvm=enabled ^

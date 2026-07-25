@@ -1,5 +1,5 @@
-About mesalib-feedstock
-=======================
+About mesa-lavapipe-feedstock
+=============================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/mesalib-feedstock/blob/main/LICENSE.txt)
 
@@ -17,7 +17,14 @@ Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>GitHub Actions</td>
+    <td>
+      <a href="https://github.com/conda-forge/mesalib-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/mesalib-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -31,27 +38,6 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=3084&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mesalib-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=3084&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mesalib-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=3084&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/mesalib-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=3084&branchName=main">
@@ -85,53 +71,56 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mesa--kosmickrisp-green.svg)](https://anaconda.org/conda-forge/mesa-kosmickrisp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mesa-kosmickrisp.svg)](https://anaconda.org/conda-forge/mesa-kosmickrisp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mesa-kosmickrisp.svg)](https://anaconda.org/conda-forge/mesa-kosmickrisp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mesa-kosmickrisp.svg)](https://anaconda.org/conda-forge/mesa-kosmickrisp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mesa--lavapipe-green.svg)](https://anaconda.org/conda-forge/mesa-lavapipe) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mesa-lavapipe.svg)](https://anaconda.org/conda-forge/mesa-lavapipe) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mesa-lavapipe.svg)](https://anaconda.org/conda-forge/mesa-lavapipe) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mesa-lavapipe.svg)](https://anaconda.org/conda-forge/mesa-lavapipe) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-mesa--llvmpipe-green.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mesa-llvmpipe.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mesa-llvmpipe.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mesa-llvmpipe.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-mesalib-green.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) |
 
-Installing mesalib
-==================
+Installing mesa-lavapipe
+========================
 
-Installing `mesalib` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `mesa-lavapipe` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `mesalib` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `mesa-kosmickrisp, mesa-lavapipe, mesa-llvmpipe, mesalib` can be installed with `conda`:
 
 ```
-conda install mesalib
-```
-
-or with `mamba`:
-
-```
-mamba install mesalib
-```
-
-It is possible to list all of the versions of `mesalib` available on your platform with `conda`:
-
-```
-conda search mesalib --channel conda-forge
+conda install mesa-kosmickrisp mesa-lavapipe mesa-llvmpipe mesalib
 ```
 
 or with `mamba`:
 
 ```
-mamba search mesalib --channel conda-forge
+mamba install mesa-kosmickrisp mesa-lavapipe mesa-llvmpipe mesalib
+```
+
+It is possible to list all of the versions of `mesa-kosmickrisp` available on your platform with `conda`:
+
+```
+conda search mesa-kosmickrisp --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search mesa-kosmickrisp --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search mesalib --channel conda-forge
+mamba repoquery search mesa-kosmickrisp --channel conda-forge
 
-# List packages depending on `mesalib`:
-mamba repoquery whoneeds mesalib --channel conda-forge
+# List packages depending on `mesa-kosmickrisp`:
+mamba repoquery whoneeds mesa-kosmickrisp --channel conda-forge
 
-# List dependencies of `mesalib`:
-mamba repoquery depends mesalib --channel conda-forge
+# List dependencies of `mesa-kosmickrisp`:
+mamba repoquery depends mesa-kosmickrisp --channel conda-forge
 ```
 
 
@@ -176,17 +165,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating mesalib-feedstock
-==========================
+Updating mesa-lavapipe-feedstock
+================================
 
-If you would like to improve the mesalib recipe or build a new
+If you would like to improve the mesa-lavapipe recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/mesalib-feedstock are
+Note that all branches in the conda-forge/mesa-lavapipe-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
