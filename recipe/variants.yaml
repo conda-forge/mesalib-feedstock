@@ -12,5 +12,13 @@ c_stdlib:
     then: macosx_deployment_target
 
 c_stdlib_version:
-  - if: osx
+  - if: osx and arm64
+    then: '15'
+  - if: osx and x86_64
+    then: '12'
+
+MACOSX_SDK_VERSION:
+  - if: osx and arm64
+    then: '15'
+  - if: osx and x86_64
     then: '12'

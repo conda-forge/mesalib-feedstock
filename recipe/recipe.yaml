@@ -182,6 +182,15 @@ outputs:
             - libxml2-devel
       run_exports:
         - ${{ pin_subpackage('mesa-llvmpipe', upper_bound='x.x') }}
+    tests:
+      - script:
+          - if: linux
+            then:
+              - test -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}
+          - if: win
+            then:
+              - if not exist %LIBRARY_PREFIX%\bin\opengl32.dll exit 1
+              - if not exist %LIBRARY_PREFIX%\bin\libgallium_wgl.dll exit 1
 
   - package:
       name: mesalib
@@ -197,6 +206,32 @@ outputs:
             - ${{ pin_subpackage('mesa-kosmickrisp', exact=True) }}
       run_exports:
         - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
+    tests:
+      - script:
+          - if: unix
+            then:
+              - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
+              - if: x86_64
+                then:
+                  - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
+              - if: aarch64
+                then:
+                  - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
+              - if: ppc64le
+                then:
+                  - test -f $PREFIX/share/vulkan/icd.d/lvp_icd.ppc64le.json
+          - if: linux
+            then:
+              - test -f $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}
+          - if: osx and arm64
+            then:
+              - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.aarch64.json
+          - if: win
+            then:
+              - if not exist %LIBRARY_PREFIX%\bin\vulkan_lvp.dll exit 1
+              - if not exist %LIBRARY_PREFIX%\share\vulkan\icd.d\lvp_icd.x86_64.json exit 1
+              - if not exist %LIBRARY_PREFIX%\bin\opengl32.dll exit 1
+              - if not exist %LIBRARY_PREFIX%\bin\libgallium_wgl.dll exit 1
 
 about:
   homepage: https://www.mesa3d.org
