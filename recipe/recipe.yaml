@@ -17,7 +17,7 @@ source:
         - patches/0002-nir-mark-assert-only-variable.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
@@ -98,7 +98,7 @@ outputs:
       version: ${{ version }}
     build:
       skip:
-        - not (osx and arm64)
+        - not osx
       script: build_kosmickrisp
     requirements:
       build:
@@ -128,7 +128,12 @@ outputs:
         - ${{ pin_subpackage('mesa-kosmickrisp', upper_bound='x.x') }}
     tests:
       - script:
-          - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.aarch64.json
+          - if: x86_64
+            then:
+              - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.x86_64.json
+          - if: arm64
+            then:
+              - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.aarch64.json
 
   - package:
       name: mesa-llvmpipe
@@ -210,7 +215,7 @@ outputs:
         - if: not osx
           then:
             - ${{ pin_subpackage('mesa-llvmpipe', exact=True) }}
-        - if: osx and arm64
+        - if: osx
           then:
             - ${{ pin_subpackage('mesa-kosmickrisp', exact=True) }}
       run_exports:
@@ -233,6 +238,9 @@ outputs:
             then:
               - test -f $PREFIX/lib/libEGL_mesa${SHLIB_EXT}
               - test -f $PREFIX/lib/libgallium-*${SHLIB_EXT}
+          - if: osx and x86_64
+            then:
+              - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.x86_64.json
           - if: osx and arm64
             then:
               - test -f $PREFIX/share/vulkan/icd.d/kosmickrisp_mesa_icd.aarch64.json
