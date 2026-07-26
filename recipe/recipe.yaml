@@ -17,7 +17,7 @@ source:
         - patches/0002-nir-mark-assert-only-variable.patch
 
 build:
-  number: 1
+  number: 2
 
 outputs:
   - package:
