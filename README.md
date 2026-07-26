@@ -1,5 +1,5 @@
-About mesa-lavapipe-feedstock
-=============================
+About mesa-kosmickrisp-feedstock
+================================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/mesalib-feedstock/blob/main/LICENSE.txt)
 
@@ -76,10 +76,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-mesa--llvmpipe-green.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mesa-llvmpipe.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mesa-llvmpipe.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mesa-llvmpipe.svg)](https://anaconda.org/conda-forge/mesa-llvmpipe) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-mesalib-green.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/mesalib.svg)](https://anaconda.org/conda-forge/mesalib) |
 
-Installing mesa-lavapipe
-========================
+Installing mesa-kosmickrisp
+===========================
 
-Installing `mesa-lavapipe` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `mesa-kosmickrisp` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -165,17 +165,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating mesa-lavapipe-feedstock
-================================
+Updating mesa-kosmickrisp-feedstock
+===================================
 
-If you would like to improve the mesa-lavapipe recipe or build a new
+If you would like to improve the mesa-kosmickrisp recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/mesa-lavapipe-feedstock are
+Note that all branches in the conda-forge/mesa-kosmickrisp-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
