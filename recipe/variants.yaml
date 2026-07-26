@@ -15,10 +15,10 @@ c_stdlib_version:
   - if: osx and arm64
     then: '15'
   - if: osx and x86_64
-    then: '12'
+    then: '15'
 
 MACOSX_SDK_VERSION:
   - if: osx and arm64
     then: '15'
   - if: osx and x86_64
-    then: '12'
+    then: '15'

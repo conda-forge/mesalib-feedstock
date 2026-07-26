@@ -27,7 +27,7 @@ jobs:
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
-            docker_run_args:
+            docker_run_args: 
             free_disk_space: skip
             os: ubuntu
             pagefile_size: 0
@@ -39,7 +39,7 @@ jobs:
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
-            docker_run_args:
+            docker_run_args: 
             free_disk_space: skip
             os: ubuntu
             pagefile_size: 0
@@ -51,7 +51,7 @@ jobs:
             STORE_BUILD_ARTIFACTS: False
             UPLOAD_PACKAGES: True
             build_workspace_dir: build_artifacts
-            docker_run_args:
+            docker_run_args: 
             free_disk_space: skip
             os: ubuntu
             pagefile_size: 0
