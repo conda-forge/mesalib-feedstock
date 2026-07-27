@@ -17,7 +17,7 @@ source:
         - patches/0002-nir-mark-assert-only-variable.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - package:
@@ -203,8 +203,14 @@ outputs:
               - test -f $PREFIX/lib/libgallium-*${SHLIB_EXT}
           - if: win
             then:
-              - if not exist %LIBRARY_PREFIX%\bin\opengl32.dll exit 1
               - if not exist %LIBRARY_PREFIX%\bin\libgallium_wgl.dll exit 1
+              # opengl32.dll is shipped, but kept off every DLL search path so
+              # it can only be used deliberately.
+              # https://github.com/conda-forge/mesalib-feedstock/issues/142
+              - if not exist %LIBRARY_PREFIX%\opengl32\opengl32.dll exit 1
+              - if not exist %LIBRARY_PREFIX%\opengl32\opengl32.lib exit 1
+              - if exist %LIBRARY_PREFIX%\bin\opengl32.dll exit 1
+              - if exist %LIBRARY_PREFIX%\lib\opengl32.lib exit 1
 
   - package:
       name: mesalib
@@ -248,8 +254,10 @@ outputs:
             then:
               - if not exist %LIBRARY_PREFIX%\bin\vulkan_lvp.dll exit 1
               - if not exist %LIBRARY_PREFIX%\share\vulkan\icd.d\lvp_icd.x86_64.json exit 1
-              - if not exist %LIBRARY_PREFIX%\bin\opengl32.dll exit 1
               - if not exist %LIBRARY_PREFIX%\bin\libgallium_wgl.dll exit 1
+              # Depending on mesalib must never force software OpenGL.
+              # https://github.com/conda-forge/mesalib-feedstock/issues/142
+              - if exist %LIBRARY_PREFIX%\bin\opengl32.dll exit 1
 
 about:
   homepage: https://www.mesa3d.org
