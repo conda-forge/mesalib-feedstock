@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "26.1.5"
+  version: "26.1.6"
 
 recipe:
   name: mesalib
@@ -9,7 +9,7 @@ recipe:
 
 source:
   url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
-  sha256: 79e421c7ce18cd9e790b8375920325779f10798630bf30e0b22f1a21c8617122
+  sha256: 5296b88a0f1e012e2cb9ada150a2bbadf728ca81e5a4fb2ab43c83a4d2158606
   patches:
     - if: win
       then:
@@ -17,7 +17,7 @@ source:
         - patches/0002-nir-mark-assert-only-variable.patch
 
 build:
-  number: 2
+  number: 0
 
 outputs:
   - package:
@@ -215,8 +215,7 @@ outputs:
         - if: not osx
           then:
             - ${{ pin_subpackage('mesa-llvmpipe', exact=True) }}
-        - if: osx
-          then:
+          else:
             - ${{ pin_subpackage('mesa-kosmickrisp', exact=True) }}
       run_exports:
         - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
