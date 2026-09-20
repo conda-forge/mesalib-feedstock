@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "26.2.1"
+  version: "26.2.3"
 
 recipe:
   name: mesalib
@@ -9,7 +9,7 @@ recipe:
 
 source:
   url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
-  sha256: c47e81bddc4760360a41ac3c5acec38acb81f9d750ecef47e7f3adc7021a4442
+  sha256: 1628058a8d2c0615975de5a15ab7bbb9638c50000b5bed9456ff423ea034a81f
   patches:
     - if: win
       then:
@@ -18,7 +18,7 @@ source:
     - patches/0002-anv-i915-expose-a-cached-coherent-memory-type-where-t.patch
 
 build:
-  number: 2
+  number: 0
 
 outputs:
   - package:
