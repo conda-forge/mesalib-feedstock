@@ -11,15 +11,14 @@ Subject: [PATCH] Add inteljitevents module
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/meson.build b/meson.build
-index cc901ec629e..88e32893d51 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -1805,7 +1805,7 @@ if dep_libudev.found()
+@@ -1959,7 +1959,7 @@
    pre_args += '-DHAVE_LIBUDEV'
  endif
  
--llvm_modules = ['bitwriter', 'engine', 'mcdisassembler', 'mcjit', 'core', 'executionengine', 'scalaropts', 'transformutils', 'instcombine']
-+llvm_modules = ['bitwriter', 'engine', 'mcdisassembler', 'mcjit', 'core', 'executionengine', 'scalaropts', 'transformutils', 'instcombine', 'inteljitevents']
+-llvm_modules = ['bitwriter', 'engine', 'mcdisassembler', 'core', 'executionengine', 'scalaropts', 'transformutils', 'instcombine']
++llvm_modules = ['bitwriter', 'engine', 'mcdisassembler', 'core', 'executionengine', 'scalaropts', 'transformutils', 'instcombine', 'inteljitevents']
  llvm_optional_modules = ['coroutines']
  if with_amd_vk or with_gallium_radeonsi
    llvm_modules += ['amdgpu', 'bitreader', 'ipo']
