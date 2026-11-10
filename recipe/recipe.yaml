@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "26.2.6"
+  version: "26.3.0"
 
 recipe:
   name: mesalib
@@ -9,13 +9,14 @@ recipe:
 
 source:
   url: https://archive.mesa3d.org/mesa-${{ version }}.tar.xz
-  sha256: b9436b3e1a8be76fbd4823dc884f90596ab7c6ac5e1867a305e66ffccfb31a92
+  sha256: 91d729aa68bb89e4ec857841300bbe922bcb3e52b1f97566ca83930d3b28343a
   patches:
     - if: win
       then:
         - patches/0001-Add-inteljitevents-module.patch
     # https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16136
     - patches/0002-anv-i915-expose-a-cached-coherent-memory-type-where-t.patch
+    - patches/0003-vulkan-runtime-mark-frame-pacer-query-result-ASSERTED.patch
 
 build:
   number: 0
@@ -43,7 +44,7 @@ outputs:
         - packaging
         - flex
         - bison
-        - pkg-config
+        - pkgconf
         - if: build_platform != host_platform
           then:
             - llvm
@@ -61,7 +62,7 @@ outputs:
         # The Intel and Nouveau gallium drivers compile their internal OpenCL C
         # kernels with mesa-clc at build time, which needs clang and the
         # SPIR-V/LLVM translator.  Neither is a runtime dependency.
-        - clangdev
+        - clangdev >=15
         - llvm-spirv
         - libllvmspirv
         - libxcb
@@ -79,7 +80,7 @@ outputs:
     tests:
       - requirements:
           run:
-            - pkg-config
+            - pkgconf
         script:
           # The shared runtime every gallium driver needs.
           - test -f $PREFIX/lib/libgallium-*${SHLIB_EXT}
@@ -128,7 +129,7 @@ outputs:
             - mako
             - packaging
             - winflexbison
-            - pkg-config
+            - pkgconf
             - glslang
       host:
         - if: linux
@@ -384,7 +385,7 @@ outputs:
             - bison
         - if: win
           then: winflexbison
-        - pkg-config
+        - pkgconf
         - if: build_platform != host_platform
           then:
             - llvm
@@ -406,7 +407,7 @@ outputs:
         - spirv-tools
         - llvm
         - llvmdev
-        - clangdev
+        - clangdev >=15
         - llvm-spirv
         - libllvmspirv
         - if: linux
@@ -466,7 +467,7 @@ outputs:
             - bison
         - if: win
           then: winflexbison
-        - pkg-config
+        - pkgconf
         - if: build_platform != host_platform
           then:
             - llvm
@@ -485,7 +486,7 @@ outputs:
         - spirv-tools
         - llvm
         - llvmdev
-        - clangdev
+        - clangdev >=15
         - llvm-spirv
         - libllvmspirv
         - if: linux
@@ -530,7 +531,7 @@ outputs:
             - bison
         - if: win
           then: winflexbison
-        - pkg-config
+        - pkgconf
         - if: build_platform != host_platform
           then:
             - llvm
@@ -549,7 +550,7 @@ outputs:
         - spirv-tools
         - llvm
         - llvmdev
-        - clangdev
+        - clangdev >=15
         - llvm-spirv
         - libllvmspirv
         - if: linux
@@ -594,7 +595,7 @@ outputs:
             - bison
         - if: win
           then: winflexbison
-        - pkg-config
+        - pkgconf
         - if: build_platform != host_platform
           then:
             - llvm
@@ -613,7 +614,7 @@ outputs:
         - spirv-tools
         - llvm
         - llvmdev
-        - clangdev
+        - clangdev >=15
         - llvm-spirv
         - libllvmspirv
         - if: linux
@@ -658,7 +659,7 @@ outputs:
             - bison
         - if: win
           then: winflexbison
-        - pkg-config
+        - pkgconf
         - if: build_platform != host_platform
           then:
             - llvm
@@ -677,7 +678,7 @@ outputs:
         - spirv-tools
         - llvm
         - llvmdev
-        - clangdev
+        - clangdev >=15
         - llvm-spirv
         - libllvmspirv
         - if: linux
@@ -719,7 +720,7 @@ outputs:
         - packaging
         - flex
         - bison
-        - pkg-config
+        - pkgconf
         - glslang
       host:
         - expat
@@ -728,7 +729,7 @@ outputs:
         - spirv-tools
         - llvm
         - llvmdev
-        - clangdev
+        - clangdev >=15
         - libclc
         - llvm-spirv
         - libllvmspirv

@@ -1,0 +1,26 @@
+Subject: [PATCH] vulkan/runtime: mark frame pacer query result ASSERTED
+
+vk_frame_pacer.c (added in upstream 6854f77017cf) stores the result of
+GetQueryPoolResults() in a local that is only read by assert().  In a
+release build NDEBUG compiles the assert out and MSVC raises C4189,
+which mesa's meson.build promotes to an error with /we4189.  The
+/wd4189 that meson adds for NDEBUG builds is only applied on the
+GCC-syntax branch, so MSVC release builds fail:
+
+  src/vulkan/runtime/vk_frame_pacer.c(132): error C4189: 'res': local
+  variable is initialized but not referenced
+
+Tag the variable ASSERTED, as the rest of src/vulkan/runtime does for
+assert-only results.
+---
+--- a/src/vulkan/runtime/vk_frame_pacer.c
++++ b/src/vulkan/runtime/vk_frame_pacer.c
+@@ -129,7 +129,7 @@
+ 
+       while (num_timestamps > 0) {
+          /* Retrieve timestamp results from this queue. */
+-         VkResult res = device->dispatch_table.GetQueryPoolResults(
++         ASSERTED VkResult res = device->dispatch_table.GetQueryPoolResults(
+             _device, queue_ctx->queryPool, query_idx, num_timestamps,
+             sizeof(struct query) * num_timestamps, &query_begin->gpu_ts, sizeof(struct query),
+             VK_QUERY_RESULT_64_BIT);
