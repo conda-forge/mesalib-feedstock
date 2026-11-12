@@ -25,8 +25,10 @@ esac
 
 if [[ "${target_platform}" == osx-* ]]; then
   MESA_PLATFORMS="macos"
+  ICD_NAME_SUFFIX=""
 else
   MESA_PLATFORMS="x11"
+  ICD_NAME_SUFFIX="conda"
 fi
 
 if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
@@ -55,6 +57,7 @@ meson setup builddir/ \
   -Dshared-llvm=enabled \
   -Dlibdir=lib \
   -Dvulkan-drivers=${VULKAN_DRIVERS} \
+  -Dvulkan-icd-name-suffix=${ICD_NAME_SUFFIX} \
   -Dopengl=true \
   -Dglx-direct=false \
   || { cat builddir/meson-logs/meson-log.txt; exit 1; }
