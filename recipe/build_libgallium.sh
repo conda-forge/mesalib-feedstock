@@ -5,7 +5,7 @@ set -ex
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
-MESA_PLATFORMS="x11"
+MESA_PLATFORMS="x11,wayland"
 
 # Every gallium driver named here is compiled into libgallium-${PKG_VERSION}.so,
 # which this package ships.  The per-driver packages (mesa-iris, mesa-zink, ...)
@@ -25,6 +25,9 @@ else
 fi
 
 if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
+  # meson looks up wayland-scanner as a native dependency, i.e. with the
+  # build machine's pkg-config search path.
+  export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig:$BUILD_PREFIX/share/pkgconfig
   if [[ "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
     rm $PREFIX/bin/llvm-config
     cp $BUILD_PREFIX/bin/llvm-config $PREFIX/bin/llvm-config

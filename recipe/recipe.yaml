@@ -19,7 +19,7 @@ source:
     - patches/0003-vulkan-runtime-mark-frame-pacer-query-result-ASSERTED.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
@@ -50,6 +50,8 @@ outputs:
             - llvm
             - llvmdev
             - libdrm
+            # wayland-scanner has to run on the build machine
+            - wayland
         - glslang
       host:
         - expat
@@ -72,6 +74,8 @@ outputs:
         - xorg-xorgproto
         - xorg-libxrandr
         - xorg-libxshmfence
+        - wayland
+        - wayland-protocols
         - libglvnd-devel
         - libegl-devel
         - libglx-devel
@@ -89,6 +93,9 @@ outputs:
           - test -f $PREFIX/lib/libEGL_mesa${SHLIB_EXT}
           - test -f $PREFIX/lib/dri/libdril_dri${SHLIB_EXT}
           - test -f $PREFIX/lib/gbm/dri_gbm${SHLIB_EXT}
+          # EGL and GBM were built with the Wayland platform next to X11
+          - grep -q wl_display_ $PREFIX/lib/libEGL_mesa${SHLIB_EXT}
+          - grep -q xcb_connect $PREFIX/lib/libEGL_mesa${SHLIB_EXT}
           - test -f $PREFIX/share/glvnd/egl_vendor.d/50_mesa.json
           - pkg-config --exists gbm
           # ... and not a single driver registered.
@@ -391,7 +398,10 @@ outputs:
             - llvm
             - llvmdev
             - if: linux
-              then: libdrm
+              then:
+                - libdrm
+                # wayland-scanner has to run on the build machine
+                - wayland
         - glslang
       host:
         - if: unix
@@ -417,6 +427,8 @@ outputs:
             - xorg-xorgproto
             - xorg-libxrandr
             - xorg-libxshmfence
+            - wayland
+            - wayland-protocols
         - if: win
           then:
             - libxml2-devel
@@ -428,6 +440,11 @@ outputs:
             then:
               - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
               - test -f $PREFIX/share/drirc.d/00-lavapipe-defaults.conf
+              - if: linux
+                then:
+                  # the Vulkan WSI can present to Wayland as well as X11
+                  - grep -q VK_KHR_wayland_surface $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
+                  - grep -q VK_KHR_xcb_surface $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
               - if: x86_64
                 then: test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
               - if: aarch64
@@ -473,7 +490,10 @@ outputs:
             - llvm
             - llvmdev
             - if: linux
-              then: libdrm
+              then:
+                - libdrm
+                # wayland-scanner has to run on the build machine
+                - wayland
         - glslang
       host:
         - if: unix
@@ -496,6 +516,8 @@ outputs:
             - xorg-xorgproto
             - xorg-libxrandr
             - xorg-libxshmfence
+            - wayland
+            - wayland-protocols
         - if: win
           then:
             - libxml2-devel
@@ -537,7 +559,10 @@ outputs:
             - llvm
             - llvmdev
             - if: linux
-              then: libdrm
+              then:
+                - libdrm
+                # wayland-scanner has to run on the build machine
+                - wayland
         - glslang
       host:
         - if: unix
@@ -560,6 +585,8 @@ outputs:
             - xorg-xorgproto
             - xorg-libxrandr
             - xorg-libxshmfence
+            - wayland
+            - wayland-protocols
         - if: win
           then:
             - libxml2-devel
@@ -601,7 +628,10 @@ outputs:
             - llvm
             - llvmdev
             - if: linux
-              then: libdrm
+              then:
+                - libdrm
+                # wayland-scanner has to run on the build machine
+                - wayland
         - glslang
       host:
         - if: unix
@@ -624,6 +654,8 @@ outputs:
             - xorg-xorgproto
             - xorg-libxrandr
             - xorg-libxshmfence
+            - wayland
+            - wayland-protocols
         - if: win
           then:
             - libxml2-devel
@@ -665,7 +697,10 @@ outputs:
             - llvm
             - llvmdev
             - if: linux
-              then: libdrm
+              then:
+                - libdrm
+                # wayland-scanner has to run on the build machine
+                - wayland
         - glslang
       host:
         - if: unix
@@ -688,6 +723,8 @@ outputs:
             - xorg-xorgproto
             - xorg-libxrandr
             - xorg-libxshmfence
+            - wayland
+            - wayland-protocols
         - if: win
           then:
             - libxml2-devel
