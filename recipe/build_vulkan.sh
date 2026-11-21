@@ -26,10 +26,13 @@ esac
 if [[ "${target_platform}" == osx-* ]]; then
   MESA_PLATFORMS="macos"
 else
-  MESA_PLATFORMS="x11"
+  MESA_PLATFORMS="x11,wayland"
 fi
 
 if [[ $CONDA_BUILD_CROSS_COMPILATION == "1" ]]; then
+  # meson looks up wayland-scanner as a native dependency, i.e. with the
+  # build machine's pkg-config search path.
+  export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig:$BUILD_PREFIX/share/pkgconfig
   if [[ "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
     rm $PREFIX/bin/llvm-config
     cp $BUILD_PREFIX/bin/llvm-config $PREFIX/bin/llvm-config
