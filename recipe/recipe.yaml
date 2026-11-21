@@ -17,9 +17,10 @@ source:
     # https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16136
     - patches/0002-anv-i915-expose-a-cached-coherent-memory-type-where-t.patch
     - patches/0003-vulkan-runtime-mark-frame-pacer-query-result-ASSERTED.patch
+    - patches/0004-meson-add-vulkan-icd-name-suffix-option.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
@@ -424,9 +425,16 @@ outputs:
         - ${{ pin_subpackage('mesa-lavapipe', upper_bound='x.x') }}
     tests:
       - script:
-          - if: unix
+          - if: osx
             then:
               - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
+          - if: linux
+            then:
+              - test -f $PREFIX/lib/libvulkan_lvp.conda.so
+              - test ! -e $PREFIX/lib/libvulkan_lvp.so
+              - grep -q "$PREFIX/lib/libvulkan_lvp.conda.so\"" $PREFIX/share/vulkan/icd.d/lvp_icd.*.json
+          - if: unix
+            then:
               - test -f $PREFIX/share/drirc.d/00-lavapipe-defaults.conf
               - if: x86_64
                 then: test -f $PREFIX/share/vulkan/icd.d/lvp_icd.x86_64.json
@@ -504,7 +512,9 @@ outputs:
         - ${{ pin_subpackage('mesa-anv', upper_bound='x.x') }}
     tests:
       - script:
-          - test -f $PREFIX/lib/libvulkan_intel${SHLIB_EXT}
+          - test -f $PREFIX/lib/libvulkan_intel.conda.so
+          - test ! -e $PREFIX/lib/libvulkan_intel.so
+          - grep -q "$PREFIX/lib/libvulkan_intel.conda.so\"" $PREFIX/share/vulkan/icd.d/intel_icd.x86_64.json
           - test -f $PREFIX/share/vulkan/icd.d/intel_icd.x86_64.json
           - test -f $PREFIX/share/drirc.d/00-anv-defaults.conf
 
@@ -568,7 +578,9 @@ outputs:
         - ${{ pin_subpackage('mesa-hasvk', upper_bound='x.x') }}
     tests:
       - script:
-          - test -f $PREFIX/lib/libvulkan_intel_hasvk${SHLIB_EXT}
+          - test -f $PREFIX/lib/libvulkan_intel_hasvk.conda.so
+          - test ! -e $PREFIX/lib/libvulkan_intel_hasvk.so
+          - grep -q "$PREFIX/lib/libvulkan_intel_hasvk.conda.so\"" $PREFIX/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
           - test -f $PREFIX/share/vulkan/icd.d/intel_hasvk_icd.x86_64.json
           - test -f $PREFIX/share/drirc.d/00-hasvk-defaults.conf
 
@@ -632,7 +644,9 @@ outputs:
         - ${{ pin_subpackage('mesa-venus', upper_bound='x.x') }}
     tests:
       - script:
-          - test -f $PREFIX/lib/libvulkan_virtio${SHLIB_EXT}
+          - test -f $PREFIX/lib/libvulkan_virtio.conda.so
+          - test ! -e $PREFIX/lib/libvulkan_virtio.so
+          - grep -q "$PREFIX/lib/libvulkan_virtio.conda.so\"" $PREFIX/share/vulkan/icd.d/virtio_icd.x86_64.json
           - test -f $PREFIX/share/vulkan/icd.d/virtio_icd.x86_64.json
           - test -f $PREFIX/share/drirc.d/00-venus-defaults.conf
 
@@ -753,7 +767,7 @@ outputs:
     tests:
       - script:
           - test -L $PREFIX/lib/dri/iris_dri${SHLIB_EXT}
-          - test -f $PREFIX/lib/libvulkan_intel${SHLIB_EXT}
+          - test -f $PREFIX/lib/libvulkan_intel.conda.so
 
   - package:
       name: mesalib
@@ -774,11 +788,12 @@ outputs:
         - ${{ pin_subpackage('mesalib', upper_bound='x.x') }}
     tests:
       - script:
-          - if: unix
+          - if: osx
             then:
               - test -f $PREFIX/lib/libvulkan_lvp${SHLIB_EXT}
           - if: linux
             then:
+              - test -f $PREFIX/lib/libvulkan_lvp.conda.so
               - test -L $PREFIX/lib/dri/swrast_dri${SHLIB_EXT}
               - test -f $PREFIX/lib/libEGL_mesa${SHLIB_EXT}
               - test -f $PREFIX/lib/libgallium-*${SHLIB_EXT}

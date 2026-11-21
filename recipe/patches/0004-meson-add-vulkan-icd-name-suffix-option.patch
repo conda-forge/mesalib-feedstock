@@ -1,0 +1,335 @@
+Add a vulkan-icd-name-suffix meson option so the Vulkan ICD libraries can be
+installed under a distinct name (libvulkan_intel.conda.so) that does not collide
+with a system ICD whose manifest uses a bare "library_path".  Meson sets the
+SONAME of an unversioned shared_library to its file name, so the SONAME changes
+too, which glibc needs to keep a bare-name dlopen() from matching our driver.
+Related: https://github.com/KhronosGroup/Vulkan-Loader/issues/2017
+
+diff --git a/meson.build b/meson.build
+index 59d30c8..b76e2e9 100644
+--- a/meson.build
++++ b/meson.build
+@@ -31,6 +31,12 @@ else
+   libname_suffix = 'so'
+ endif
+ 
++if get_option('vulkan-icd-name-suffix') != ''
++  vulkan_icd_libname_suffix = get_option('vulkan-icd-name-suffix') + '.' + libname_suffix
++else
++  vulkan_icd_libname_suffix = libname_suffix
++endif
++
+ cc = meson.get_compiler('c')
+ cpp = meson.get_compiler('cpp')
+ fs = import('fs')
+diff --git a/meson.options b/meson.options
+index beb2837..de35693 100644
+--- a/meson.options
++++ b/meson.options
+@@ -280,6 +280,15 @@ option(
+                 'Default: $datadir/vulkan/icd.d'
+ )
+ 
++option(
++  'vulkan-icd-name-suffix',
++  type : 'string',
++  value : '',
++  description : 'Extra suffix for Vulkan ICD library file names, e.g. "foo" ' +
++                'installs libvulkan_intel.foo.so and points the ICD manifest ' +
++                'at it, so it does not collide with a system ICD of the same name.'
++)
++
+ option(
+   'vulkan-manifest-per-architecture',
+   type : 'boolean',
+diff --git a/src/amd/vulkan/meson.build b/src/amd/vulkan/meson.build
+index 0234b4e..9601ec2 100644
+--- a/src/amd/vulkan/meson.build
++++ b/src/amd/vulkan/meson.build
+@@ -279,6 +279,7 @@ endif
+ libvulkan_radeon = shared_library(
+   'vulkan_radeon',
+   [libradv_files, radv_entrypoints, radv_drirc, sha1_h, bvh_spv, radv_annotate_layer],
++  name_suffix : vulkan_icd_libname_suffix,
+   vs_module_defs : vulkan_api_def,
+   include_directories : [
+     inc_include, inc_src, inc_amd, inc_amd_common, inc_amd_common_llvm,
+@@ -319,7 +320,7 @@ if with_symbols_check
+   )
+ endif
+ 
+-icd_file_name = libname_prefix + 'vulkan_radeon.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_radeon.' + vulkan_icd_libname_suffix
+ 
+ icd_command = [
+   prog_python, '@INPUT0@',
+diff --git a/src/asahi/vulkan/meson.build b/src/asahi/vulkan/meson.build
+index dbe175d..f378416 100644
+--- a/src/asahi/vulkan/meson.build
++++ b/src/asahi/vulkan/meson.build
+@@ -109,13 +109,14 @@ libhk = static_library(
+ 
+ libvulkan_asahi = shared_library(
+   'vulkan_asahi',
++  name_suffix : vulkan_icd_libname_suffix,
+   link_whole : [libhk],
+   link_args: [ld_args_build_id],
+   gnu_symbol_visibility : 'hidden',
+   install : true,
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_asahi.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_asahi.' + vulkan_icd_libname_suffix
+ 
+ asahi_icd = custom_target(
+   input : [vk_icd_gen, vk_api_xml],
+diff --git a/src/broadcom/vulkan/meson.build b/src/broadcom/vulkan/meson.build
+index a450aa7..97a8ac1 100644
+--- a/src/broadcom/vulkan/meson.build
++++ b/src/broadcom/vulkan/meson.build
+@@ -142,6 +142,7 @@ endforeach
+ libvulkan_broadcom = shared_library(
+   'vulkan_broadcom',
+   [libv3dv_files, v3dv_entrypoints, v3dv_tracepoints, v3dv_drirc, sha1_h],
++  name_suffix : vulkan_icd_libname_suffix,
+   include_directories : [
+     inc_include, inc_src, inc_broadcom, inc_util,
+   ],
+@@ -171,7 +172,7 @@ if with_symbols_check
+   )
+ endif
+ 
+-icd_file_name = libname_prefix + 'vulkan_broadcom.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_broadcom.' + vulkan_icd_libname_suffix
+ 
+ broadcom_icd = custom_target(
+   'broadcom_icd',
+diff --git a/src/freedreno/vulkan/meson.build b/src/freedreno/vulkan/meson.build
+index b019710..4cfd957 100644
+--- a/src/freedreno/vulkan/meson.build
++++ b/src/freedreno/vulkan/meson.build
+@@ -202,6 +202,7 @@ endif
+ libvulkan_freedreno = shared_library(
+   'vulkan_freedreno',
+   [libtu_files, tu_drirc, tu_entrypoints, tu_tracepoints, freedreno_xml_header_files, sha1_h, u_format_pack_h, bvh_spv],
++  name_suffix : vulkan_icd_libname_suffix,
+   include_directories : libtu_includes,
+   link_with : [
+     libfreedreno_ir3,
+@@ -244,7 +245,7 @@ if with_symbols_check
+   )
+ endif
+ 
+-icd_file_name = libname_prefix + 'vulkan_freedreno.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_freedreno.' + vulkan_icd_libname_suffix
+ 
+ freedreno_icd = custom_target(
+   'freedreno_icd',
+diff --git a/src/gallium/targets/lavapipe/meson.build b/src/gallium/targets/lavapipe/meson.build
+index ce294bb..69cd8b1 100644
+--- a/src/gallium/targets/lavapipe/meson.build
++++ b/src/gallium/targets/lavapipe/meson.build
+@@ -3,6 +3,7 @@
+ libvulkan_lvp = shared_library(
+   'vulkan_lvp',
+   [ 'lavapipe_target.c' ],
++  name_suffix : vulkan_icd_libname_suffix,
+   vs_module_defs : vulkan_api_def,
+   include_directories : [ inc_src, inc_util, inc_include, inc_gallium, inc_gallium_aux, inc_gallium_winsys, inc_gallium_drivers ],
+   link_whole : [ liblavapipe_st ],
+@@ -19,7 +20,7 @@ libvulkan_lvp = shared_library(
+   install : true,
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_lvp.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_lvp.' + vulkan_icd_libname_suffix
+ 
+ icd_command = [
+   prog_python, '@INPUT0@',
+diff --git a/src/gfxstream/guest/vulkan/meson.build b/src/gfxstream/guest/vulkan/meson.build
+index e38c96d..e5cb0e9 100644
+--- a/src/gfxstream/guest/vulkan/meson.build
++++ b/src/gfxstream/guest/vulkan/meson.build
+@@ -47,6 +47,7 @@ endif
+ lib_vulkan_gfxstream = shared_library(
+     'vulkan_gfxstream',
+     files_vulkan_gfxstream,
++    name_suffix : vulkan_icd_libname_suffix,
+     cpp_args: gfxstream_guest_args + gfxstream_vk_wsi_args,
+     include_directories: [
+         inc_guest_iostream,
+@@ -70,7 +71,7 @@ lib_vulkan_gfxstream = shared_library(
+     install: true,
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_gfxstream.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_gfxstream.' + vulkan_icd_libname_suffix
+ 
+ gfxstream_icd = custom_target(
+     'gfxstream_vk_icd',
+diff --git a/src/imagination/vulkan/meson.build b/src/imagination/vulkan/meson.build
+index 2c5cf4c..a226c8b 100644
+--- a/src/imagination/vulkan/meson.build
++++ b/src/imagination/vulkan/meson.build
+@@ -179,6 +179,7 @@ endforeach
+ libvulkan_powervr_mesa = shared_library(
+   'vulkan_powervr_mesa',
+   [pvr_files, pvr_entrypoints, pvr_drirc, u_format_pack_h],
++  name_suffix : vulkan_icd_libname_suffix,
+   include_directories : [
+     pvr_includes,
+     inc_imagination,
+@@ -224,7 +225,7 @@ if with_symbols_check
+   )
+ endif
+ 
+-icd_file_name = libname_prefix + 'vulkan_powervr_mesa.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_powervr_mesa.' + vulkan_icd_libname_suffix
+ 
+ powervr_mesa_icd = custom_target(
+   'powervr_mesa_icd',
+diff --git a/src/intel/vulkan/meson.build b/src/intel/vulkan/meson.build
+index 21725fd..e9260c5 100644
+--- a/src/intel/vulkan/meson.build
++++ b/src/intel/vulkan/meson.build
+@@ -50,7 +50,7 @@ else
+   anv_flags += '-DANV_SUPPORT_RT=0'
+ endif
+ 
+-icd_file_name = libname_prefix + 'vulkan_intel.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_intel.' + vulkan_icd_libname_suffix
+ 
+ intel_icd = custom_target(
+   'intel_icd',
+@@ -308,6 +308,7 @@ libanv_common = static_library(
+ libvulkan_intel = shared_library(
+   'vulkan_intel',
+   [files('anv_gem.c'), anv_entrypoints[0], bvh_spv],
++  name_suffix : vulkan_icd_libname_suffix,
+   include_directories : [
+     inc_include, inc_src, inc_intel,
+   ],
+diff --git a/src/intel/vulkan_hasvk/meson.build b/src/intel/vulkan_hasvk/meson.build
+index 69e18f1..399cc36 100644
+--- a/src/intel/vulkan_hasvk/meson.build
++++ b/src/intel/vulkan_hasvk/meson.build
+@@ -16,7 +16,7 @@ anv_hasvk_entrypoints = custom_target(
+   depend_files : vk_entrypoints_gen_depend_files,
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_intel_hasvk.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_intel_hasvk.' + vulkan_icd_libname_suffix
+ 
+ intel_hasvk_icd = custom_target(
+   'intel_hasvk_icd',
+@@ -202,6 +202,7 @@ libanv_hasvk_common = static_library(
+ libvulkan_intel_hasvk = shared_library(
+   'vulkan_intel_hasvk',
+   [files('anv_gem.c'), anv_hasvk_entrypoints[0]],
++  name_suffix : vulkan_icd_libname_suffix,
+   include_directories : [
+     inc_include, inc_src, inc_intel,
+   ],
+diff --git a/src/kosmickrisp/vulkan/meson.build b/src/kosmickrisp/vulkan/meson.build
+index f82e80f..c6839e2 100644
+--- a/src/kosmickrisp/vulkan/meson.build
++++ b/src/kosmickrisp/vulkan/meson.build
+@@ -162,13 +162,14 @@ libkk = static_library(
+ # "-Wl,-undefined,dynamic_lookup" required, otherwise, linker will complain about undefined symbols
+ libvulkan_kosmickrisp = shared_library(
+   'vulkan_kosmickrisp',
++  name_suffix : vulkan_icd_libname_suffix,
+   link_whole: [libkk],
+   link_args: [ld_args_build_id, '-Wl,-undefined,dynamic_lookup'],
+   gnu_symbol_visibility : 'hidden',
+   install : true,
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_kosmickrisp.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_kosmickrisp.' + vulkan_icd_libname_suffix
+ 
+ kosmickrisp_mesa_icd = custom_target(
+   'kosmickrisp_mesa_icd',
+diff --git a/src/microsoft/vulkan/meson.build b/src/microsoft/vulkan/meson.build
+index 800fdc2..148a667 100644
+--- a/src/microsoft/vulkan/meson.build
++++ b/src/microsoft/vulkan/meson.build
+@@ -75,6 +75,7 @@ endif
+ libvulkan_dzn = shared_library(
+   'vulkan_dzn',
+   [libdzn_files, dzn_entrypoints, dzn_drirc, sha1_h],
++  name_suffix : vulkan_icd_libname_suffix,
+   vs_module_defs : vulkan_api_def,
+   include_directories : [inc_include, inc_src, inc_util],
+   dependencies : [dzn_deps, idep_vulkan_wsi, idep_xmlconfig],
+@@ -86,7 +87,7 @@ libvulkan_dzn = shared_library(
+   install : true,
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_dzn.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_dzn.' + vulkan_icd_libname_suffix
+ 
+ 
+ icd_command = [
+diff --git a/src/nouveau/vulkan/meson.build b/src/nouveau/vulkan/meson.build
+index 029ecbd..7c6abbc 100644
+--- a/src/nouveau/vulkan/meson.build
++++ b/src/nouveau/vulkan/meson.build
+@@ -296,13 +296,14 @@ libnvk = static_library(
+ 
+ libvulkan_nouveau = shared_library(
+   'vulkan_nouveau',
++  name_suffix : vulkan_icd_libname_suffix,
+   link_whole : [libnvk],
+   link_args: [ld_args_build_id, ld_args_bsymbolic, ld_args_gc_sections],
+   gnu_symbol_visibility : 'hidden',
+   install : true,
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_nouveau.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_nouveau.' + vulkan_icd_libname_suffix
+ 
+ nouveau_icd = custom_target(
+   'nouveau_icd',
+diff --git a/src/panfrost/vulkan/meson.build b/src/panfrost/vulkan/meson.build
+index 7c87fe4..2620026 100644
+--- a/src/panfrost/vulkan/meson.build
++++ b/src/panfrost/vulkan/meson.build
+@@ -206,6 +206,7 @@ endif
+ libvulkan_panfrost = shared_library(
+   'vulkan_panfrost',
+   [libpanvk_files, panvk_entrypoints, panvk_tracepoints, panvk_drirc],
++  name_suffix : vulkan_icd_libname_suffix,
+   include_directories : [
+     inc_include,
+     inc_src,
+@@ -254,7 +255,7 @@ if with_symbols_check
+   )
+ endif
+ 
+-icd_file_name = libname_prefix + 'vulkan_panfrost.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_panfrost.' + vulkan_icd_libname_suffix
+ 
+ panfrost_icd = custom_target(
+   'panfrost_icd',
+diff --git a/src/virtio/vulkan/meson.build b/src/virtio/vulkan/meson.build
+index ff48d24..59b0b4c 100644
+--- a/src/virtio/vulkan/meson.build
++++ b/src/virtio/vulkan/meson.build
+@@ -28,7 +28,7 @@ vn_entrypoints = custom_target(
+   ],
+ )
+ 
+-icd_file_name = libname_prefix + 'vulkan_virtio.' + libname_suffix
++icd_file_name = libname_prefix + 'vulkan_virtio.' + vulkan_icd_libname_suffix
+ 
+ virtio_icd = custom_target(
+   'virtio_icd',
+@@ -159,6 +159,7 @@ endif
+ libvulkan_virtio = shared_library(
+   'vulkan_virtio',
+   [libvn_files, vn_entrypoints, vn_drirc, sha1_h],
++  name_suffix : vulkan_icd_libname_suffix,
+   include_directories : vn_incs,
+   link_with : vn_libs,
+   dependencies : vn_deps,
